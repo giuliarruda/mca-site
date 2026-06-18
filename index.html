@@ -317,6 +317,10 @@ footer p{font-size:13px;color:var(--gray)}
 .success-toast{position:fixed;bottom:80px;right:24px;z-index:500;background:#1a7a3c;color:#fff;padding:12px 22px;border-radius:4px;font-size:14px;font-weight:500;transform:translateY(20px);opacity:0;transition:all 0.3s;pointer-events:none}
 .success-toast.show{transform:translateY(0);opacity:1}
 .section-hidden{display:none!important}
+.carousel-slide{min-width:100%}
+.carousel-slide img{width:100%;height:480px;object-fit:cover;display:block}
+.carousel-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.4);cursor:pointer;transition:background 0.2s;border:none}
+.carousel-dot.active{background:var(--orange)}
 
 @media(max-width:900px){
   .sobre-layout{grid-template-columns:1fr}
@@ -352,6 +356,7 @@ footer p{font-size:13px;color:var(--gray)}
   </div>
   <div class="nav-links">
     <a onclick="showPage('home')" data-page="home" class="active">Início</a>
+    <a onclick="showPage('obras-page')" data-page="obras-page">Nossas Obras</a>
     <a onclick="showPage('sobre')" data-page="sobre">Sobre</a>
     <a onclick="showPage('atuacao')" data-page="atuacao">Atuação</a>
     <a onclick="showPage('clientes')" data-page="clientes">Clientes</a>
@@ -365,6 +370,7 @@ footer p{font-size:13px;color:var(--gray)}
 
 <div class="mobile-menu" id="mobile-menu">
   <a onclick="mobileNav('home')" data-page="home" class="active">Início</a>
+  <a onclick="mobileNav('obras-page')" data-page="obras-page">Nossas Obras</a>
   <a onclick="mobileNav('sobre')" data-page="sobre">Sobre</a>
   <a onclick="mobileNav('atuacao')" data-page="atuacao">Atuação</a>
   <a onclick="mobileNav('clientes')" data-page="clientes">Clientes</a>
@@ -416,9 +422,9 @@ footer p{font-size:13px;color:var(--gray)}
       <h2>Entre em<br>Contato</h2>
       <p>Nossa equipe responde em até 24 horas úteis.</p>
       <div class="cta-contacts" style="margin-top:28px">
-        <div class="cta-contact-item"><div class="cta-icon">📞</div><div><div class="cta-info-label">Telefone</div><div class="cta-info-val" id="cta-phone">(11) 99999-9999</div></div></div>
-        <div class="cta-contact-item"><div class="cta-icon">✉️</div><div><div class="cta-info-label">E-mail</div><div class="cta-info-val" id="cta-email">contato@mcaconstrucoes.com.br</div></div></div>
-        <div class="cta-contact-item"><div class="cta-icon">📍</div><div><div class="cta-info-label">Localização</div><div class="cta-info-val" id="cta-address">São Paulo, SP</div></div></div>
+        <div class="cta-contact-item"><div class="cta-icon"><svg viewBox="0 0 24 24" fill="var(--orange)" width="20" height="20"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.32.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.01L6.6 10.8z"/></svg></div><div><div class="cta-info-label">Telefone</div><div class="cta-info-val" id="cta-phone">(11) 99999-9999</div></div></div>
+        <div class="cta-contact-item"><div class="cta-icon"><svg viewBox="0 0 24 24" fill="var(--orange)" width="20" height="20"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div><div><div class="cta-info-label">E-mail</div><div class="cta-info-val" id="cta-email">contato@mcaconstrucoes.com.br</div></div></div>
+        <div class="cta-contact-item"><div class="cta-icon"><svg viewBox="0 0 24 24" fill="var(--orange)" width="20" height="20"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div><div><div class="cta-info-label">Localização</div><div class="cta-info-val" id="cta-address">São Paulo, SP</div></div></div>
       </div>
     </div>
     <div class="contact-form-wrap">
@@ -469,6 +475,25 @@ footer p{font-size:13px;color:var(--gray)}
   </div>
 </div>
 
+<!-- ══════════════ PAGE: NOSSAS OBRAS ══════════════ -->
+<div id="page-obras-page" class="page">
+  <div class="page-hero-strip">
+    <p class="section-label">Portfólio</p>
+    <h2 class="section-title">Nossas<br>Obras</h2>
+  </div>
+  <div style="padding:48px;background:var(--light)">
+    <div class="filter-row" id="sec-filters-page" style="margin-bottom:32px"></div>
+    <div id="obras-page-grid" class="layout-grid"></div>
+  </div>
+  <footer style="margin-top:0">
+    <p>© 2025 MCA Construções. Todos os direitos reservados.</p>
+    <div class="footer-right">
+      <div class="footer-dots"><span></span><span></span><span></span><span class="o"></span><span class="o"></span><span class="o"></span></div>
+      <button class="footer-admin-link" onclick="openAdmin()">Painel admin</button>
+    </div>
+  </footer>
+</div>
+
 <!-- ══════════════ PAGE: ATUAÇÃO ══════════════ -->
 <div id="page-atuacao" class="page">
   <div class="atuacao-intro">
@@ -488,10 +513,24 @@ footer p{font-size:13px;color:var(--gray)}
   <div class="clientes-grid" id="clientes-grid"></div>
 </div>
 
-<!-- OBRA MODAL -->
+<!-- OBRA MODAL com CARROSSEL -->
 <div id="obra-modal">
-  <div class="modal-box">
-    <div class="modal-imgs"><img id="modal-img" src="" alt=""><button class="modal-close" onclick="closeModal('obra-modal')">✕</button></div>
+  <div class="modal-box" style="max-width:960px">
+    <div class="carousel" id="obra-carousel" style="position:relative;background:#111;overflow:hidden">
+      <div class="carousel-track" id="carousel-track" style="display:flex;transition:transform 0.4s ease"></div>
+      <button class="carousel-btn carousel-prev" onclick="carouselPrev()" style="position:absolute;top:50%;left:12px;transform:translateY(-50%);background:rgba(0,0,0,0.5);border:none;color:#fff;width:44px;height:44px;border-radius:50%;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2">&#8249;</button>
+      <button class="carousel-btn carousel-next" onclick="carouselNext()" style="position:absolute;top:50%;right:12px;transform:translateY(-50%);background:rgba(0,0,0,0.5);border:none;color:#fff;width:44px;height:44px;border-radius:50%;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2">&#8250;</button>
+      <div class="carousel-dots" id="carousel-dots" style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:2"></div>
+      <div id="carousel-counter" style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.5);color:#fff;padding:4px 10px;border-radius:12px;font-size:12px;z-index:2"></div>
+      <button onclick="closeModal('obra-modal')" style="position:absolute;top:12px;left:12px;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,0.5);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3">✕</button>
+    </div>
+    <div id="antes-depois-section" style="display:none;padding:28px 40px;background:#f8f8f8;border-top:1px solid #eee">
+      <div style="font-family:var(--font-display);font-weight:700;font-size:18px;text-transform:uppercase;color:var(--navy);letter-spacing:0.05em;margin-bottom:16px;display:flex;align-items:center;gap:8px"><span style="width:3px;height:18px;background:var(--orange);border-radius:2px;display:block"></span>Antes &amp; Depois</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="position:relative;border-radius:4px;overflow:hidden"><img id="ad-antes" src="" alt="Antes" style="width:100%;height:220px;object-fit:cover;display:block"><div style="position:absolute;top:10px;left:10px;background:var(--navy);color:#fff;padding:4px 12px;border-radius:2px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600">Antes</div></div>
+        <div style="position:relative;border-radius:4px;overflow:hidden"><img id="ad-depois" src="" alt="Depois" style="width:100%;height:220px;object-fit:cover;display:block"><div style="position:absolute;top:10px;left:10px;background:var(--orange);color:#fff;padding:4px 12px;border-radius:2px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600">Depois</div></div>
+      </div>
+    </div>
     <div class="modal-body">
       <p class="modal-cat" id="modal-cat"></p>
       <h2 class="modal-nome" id="modal-nome"></h2>
@@ -515,6 +554,12 @@ footer p{font-size:13px;color:var(--gray)}
     </div>
     <div class="cliente-obras-grid" id="cm-obras"></div>
   </div>
+</div>
+
+<!-- FULLSCREEN FOTO -->
+<div id="foto-fullscreen" onclick="closeFotoFullscreen()" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;cursor:zoom-out">
+  <img id="foto-fullscreen-img" src="" alt="" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:4px">
+  <button onclick="closeFotoFullscreen()" style="position:absolute;top:20px;right:20px;background:rgba(255,255,255,0.15);border:none;color:#fff;width:40px;height:40px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
 </div>
 
 <!-- ══════════════ ADMIN PANEL ══════════════ -->
@@ -570,19 +615,34 @@ footer p{font-size:13px;color:var(--gray)}
             <div class="form-group"><label>Área total</label><input type="text" id="n-area" placeholder="850 m²"></div>
             <div class="form-group full"><label>Descrição</label><textarea id="n-desc" placeholder="Descreva a obra..."></textarea></div>
             <div class="form-group full">
-              <label>Fotos</label>
+              <label>Fotos da obra (pode selecionar várias · × remove · clique na foto para ver em tela cheia)</label>
               <div class="upload-area" onclick="document.getElementById('foto-input').click()">
-                <div class="upload-icon">📷</div>
-                <p>Clique para selecionar ou <strong>arraste as fotos aqui</strong></p>
-                <p style="font-size:11px;color:#aaa;margin-top:3px">A primeira foto será a imagem de capa</p>
+                <p>📷 Clique para selecionar ou <strong>arraste as fotos aqui</strong></p>
+                <p style="font-size:11px;color:#aaa;margin-top:4px">A primeira foto será a capa — use "↑ Capa" para mudar</p>
               </div>
-              <input type="file" id="foto-input" multiple accept="image/*" style="display:none" onchange="handleFotos(this.files,'foto-preview','obraFotos')">
+              <input type="file" id="foto-input" multiple accept="image/*" style="display:none" onchange="handleFotosObra(this.files)">
               <div class="foto-preview-row" id="foto-preview"></div>
+            </div>
+            <div class="form-group full">
+              <label>Foto ANTES (opcional — aparece na seção Antes &amp; Depois)</label>
+              <div class="upload-area" onclick="document.getElementById('foto-antes-input').click()" style="padding:14px">
+                <p>📷 Clique para selecionar foto do <strong>antes</strong></p>
+              </div>
+              <input type="file" id="foto-antes-input" accept="image/*" style="display:none" onchange="handleSingleUpload(this,'antes-preview','fotoAntes')">
+              <div class="foto-preview-row" id="antes-preview"></div>
+            </div>
+            <div class="form-group full">
+              <label>Foto DEPOIS (opcional — aparece na seção Antes &amp; Depois)</label>
+              <div class="upload-area" onclick="document.getElementById('foto-depois-input').click()" style="padding:14px">
+                <p>📷 Clique para selecionar foto do <strong>depois</strong></p>
+              </div>
+              <input type="file" id="foto-depois-input" accept="image/*" style="display:none" onchange="handleSingleUpload(this,'depois-preview','fotoDepois')">
+              <div class="foto-preview-row" id="depois-preview"></div>
             </div>
           </div>
           <div style="display:flex;gap:10px;margin-top:8px">
             <button class="btn-save" onclick="salvarObra()">Salvar Obra</button>
-            <button class="btn-secondary" onclick="limparForm('obra')">Limpar</button>
+            <button class="btn-secondary" onclick="limparFormObra()">Limpar</button>
           </div>
         </div>
 
@@ -601,13 +661,13 @@ footer p{font-size:13px;color:var(--gray)}
                   <div class="upload-icon">🖼</div>
                   <p>Clique para enviar o <strong>logo</strong> (PNG transparente ideal)</p>
                 </div>
-                <input type="file" id="cl-logo-input" accept="image/*" style="display:none" onchange="handleSingleFoto(this,'cl-logo-preview','clienteLogo')">
+                <input type="file" id="cl-logo-input" accept="image/*" style="display:none" onchange="handleSingleUpload(this,'cl-logo-preview','clienteLogo')">
                 <div class="foto-preview-row" id="cl-logo-preview"></div>
               </div>
             </div>
             <div style="display:flex;gap:10px;margin-top:8px">
               <button class="btn-save" onclick="salvarCliente()">Salvar Cliente</button>
-              <button class="btn-secondary" onclick="limparForm('cliente')">Limpar</button>
+              <button class="btn-secondary" onclick="limparFormCliente()">Limpar</button>
             </div>
           </div>
         </div>
@@ -633,7 +693,7 @@ footer p{font-size:13px;color:var(--gray)}
                 <div class="upload-icon">📸</div>
                 <p>Clique para enviar uma <strong>foto</strong> da equipe ou obra</p>
               </div>
-              <input type="file" id="sobre-foto-input" accept="image/*" style="display:none" onchange="handleSingleFoto(this,'sobre-foto-preview','sobreFoto')">
+              <input type="file" id="sobre-foto-input" accept="image/*" style="display:none" onchange="handleSingleUpload(this,'sobre-foto-preview','sobreFoto')">
               <div class="foto-preview-row" id="sobre-foto-preview"></div>
             </div>
             <div class="form-group full"><label>Texto principal (separe parágrafos com linha em branco)</label><textarea id="sobre-texto" rows="7" style="border:1px solid #ddd;border-radius:4px;padding:10px;font-size:14px;font-family:var(--font-body);width:100%;outline:none"></textarea></div>
@@ -734,63 +794,45 @@ footer p{font-size:13px;color:var(--gray)}
 
 <script type="module">
 import{createClient}from'https://esm.sh/@supabase/supabase-js@2';
+const SB_URL='https://jgjdixitsoftojnzmsxw.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpnamRpeGl0c29mdG9qbnptc3h3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMzQ4OTUsImV4cCI6MjA5NTkxMDg5NX0.JXLMu-s21bCcwTqPwT1fJyVMJ5HosqYN8S-qMJkA4sA';
+const sb=createClient(SB_URL,SB_KEY);
 
-// ══ SUPABASE CONFIG — substitua pelos seus dados ══
-const SB_URL = 'https://jgjdixitsoftojnzmsxw.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpnamRpeGl0c29mdG9qbnptc3h3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMzQ4OTUsImV4cCI6MjA5NTkxMDg5NX0.JXLMu-s21bCcwTqPwT1fJyVMJ5HosqYN8S-qMJkA4sA';
-// ════════════════════════════════════════════════
-
-const sb = (SB_URL.startsWith('https://') && !SB_URL.includes('COLE'))
-  ? createClient(SB_URL, SB_KEY)
-  : null;
-
-// ── Fallback localStorage (enquanto Supabase não está configurado) ──
-const DEF_OBRAS=[
-  {id:1,nome:'Loja Penalty — Shopping Iguatemi',cat:'Comercial',clienteId:5,local:'São Paulo, SP',ano:'2024',area:'320 m²',desc:'Execução completa da loja Penalty no Shopping Iguatemi, com instalações elétricas, hidráulicas e acabamentos sob medida.',foto:'https://images.unsplash.com/photo-1555529902-5261145633bf?w=800&q=80'},
-  {id:2,nome:'Le Lis Blanc — Morumbi Shopping',cat:'Comercial',clienteId:6,local:'São Paulo, SP',ano:'2024',area:'280 m²',desc:'Reforma e adequação de loja Le Lis Blanc com ambiente sofisticado e acabamentos premium.',foto:'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80'},
-  {id:3,nome:'Condomínio Residencial Aurora',cat:'Residencial',clienteId:null,local:'Alphaville, SP',ano:'2023',area:'3.200 m²',desc:'Complexo residencial com 24 unidades e área de lazer completa.',foto:'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80'},
-  {id:4,nome:'Galpão Industrial TechPark',cat:'Industrial',clienteId:null,local:'Jundiaí, SP',ano:'2023',area:'12.000 m²',desc:'Complexo industrial com galpão de alta capacidade e infraestrutura logística.',foto:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80'},
-  {id:5,nome:'Davvero Gelato — Shopping Vila Olímpia',cat:'Comercial',clienteId:2,local:'São Paulo, SP',ano:'2022',area:'95 m²',desc:'Execução da gelateria italiana Davvero com projeto de interiores exclusivo.',foto:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80'},
-  {id:6,nome:'Residência Família Oliveira',cat:'Residencial',clienteId:null,local:'Granja Viana, SP',ano:'2022',area:'480 m²',desc:'Casa de alto padrão com 5 suítes, piscina e área de entretenimento.',foto:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80'},
-];
-const DEF_CLIENTES=[
-  {id:1,nome:'Bo.Bô',seg:'Moda Feminina',desc:'2 lojas construídas em shoppings paulistanos',logo:''},
-  {id:2,nome:'Davvero',seg:'Gastronomia',desc:'Gelateria italiana — 3 unidades',logo:''},
-  {id:3,nome:'Dudalina',seg:'Moda Masculina',desc:'Reforma de lojas e showroom',logo:''},
-  {id:4,nome:'Estoque',seg:'Moda',desc:'Adequações de loja em 5 shoppings',logo:''},
-  {id:5,nome:'Penalty',seg:'Esporte',desc:'Execução de lojas em 4 shoppings',logo:''},
-  {id:6,nome:'Le Lis Blanc',seg:'Moda Premium',desc:'Obras de alto padrão em 3 unidades',logo:''},
-  {id:7,nome:'John John',seg:'Moda Jeans',desc:'Lojas e reforma de showroom',logo:''},
-  {id:8,nome:'Restoque S.A.',seg:'Varejo de Moda',desc:'Gestão de obras corporativas',logo:''},
-];
-const DEF_ATUACAO=[
-  {id:1,titulo:'Acompanhamento de Obras',desc:'De acordo com as suas necessidades, realizamos o acompanhamento técnico completo da sua obra, garantindo qualidade e cumprimento do cronograma.',foto:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80'},
-  {id:2,titulo:'Execução de Obras e Reformas',desc:'Gestão inteligente que faz a diferença. Executamos obras residenciais, comerciais e industriais com equipe própria e rigoroso controle de qualidade.',foto:'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80'},
-  {id:3,titulo:'Gerenciamento de Construções',desc:'Eficiente. Confiável. Excepcional. Nossa gestão integrada cuida de todos os aspectos da construção, desde o planejamento até a entrega das chaves.',foto:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80'},
-  {id:4,titulo:'Gestão de Obras Corporativas, Residenciais ou Empresariais',desc:'Personalizado para realizar seu sonho. Desenvolvemos soluções sob medida para cada cliente, adaptando nossos serviços às necessidades específicas de cada projeto.',foto:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80'},
-];
-const DEF_SOBRE={foto:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80',texto:'A MCA Construções é uma empresa especializada em construção civil, gerenciamento e execução de obras residenciais, comerciais e corporativas.\n\nCom mais de 15 anos de experiência no mercado, construímos nossa reputação sobre três pilares: qualidade técnica, cumprimento de prazos e relacionamento transparente com nossos clientes.\n\nNossa equipe de engenheiros e gestores de obras acompanha cada projeto do início ao fim, garantindo que cada detalhe seja executado com precisão e excelência.'};
-const DEF_SITE={phone:'(11) 99999-9999',email:'contato@mcaconstrucoes.com.br',address:'São Paulo, SP',sub:'Mais de 15 anos transformando projetos em realidade. Obras residenciais, comerciais e industriais.',stat1:'150+',stat2:'15'};
-const DEF_LAYOUT={gallery:'grid',navy:'#2E3450',orange:'#E8692A',light:'#F7F5F2',fontDisplay:'Barlow Condensed',fontBody:'Barlow',radius:'0',secStats:true,secAbout:true,secFilters:true,stripItems:[{icon:'🏢',label:'Obras Comerciais'},{icon:'🏠',label:'Residencial'}]};
+const DEF_SITE={phone:'(11) 99999-9999',email:'contato@mcaconstrucoes.com',address:'São Paulo, SP',sub:'Mais de 15 anos transformando projetos em realidade.',stat1:'150+',stat2:'15'};
+const DEF_LAYOUT={gallery:'grid',navy:'#2E3450',orange:'#E8692A',light:'#F7F5F2',fontDisplay:'Barlow Condensed',fontBody:'Barlow',radius:'0',secStats:true,secAbout:true,secFilters:true,stripItems:[{icon:'building',label:'Obras Comerciais'},{icon:'home',label:'Residencial'}]};
+const DEF_SOBRE={foto:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80',texto:'A MCA Construções é especializada em construção civil, gerenciamento e execução de obras.'};
 
 function ld(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
 function sv(k,v){localStorage.setItem(k,JSON.stringify(v))}
 
-let obras=ld('mca_obras',DEF_OBRAS);
-let clientes=ld('mca_clientes',DEF_CLIENTES);
-let atuacaoData=ld('mca_atuacao',DEF_ATUACAO);
-let sobreData=ld('mca_sobre',DEF_SOBRE);
-let siteData=ld('mca_site',DEF_SITE);
-let layoutData=ld('mca_layout',DEF_LAYOUT);
-let isLoggedIn=false;
-let obraFotos=[],clienteLogo=null,sobreFoto=null;
+let obras=[],clientes=[],atuacaoData=[],sobreData=ld('mca_sobre',DEF_SOBRE);
+let siteData=ld('mca_site',DEF_SITE),layoutData=ld('mca_layout',DEF_LAYOUT);
+let isLoggedIn=false,atuacaoTemp=[];
+let obraFotos=[],fotoAntes=null,fotoDepois=null,clienteLogo=null,sobreFoto=null;
 let editingObra=null,editingCliente=null;
-let atuacaoTemp=[];
+let carouselCurrent=0,carouselSlides=[];
 
-// ══ SUPABASE LOAD ══
+const SVGS={
+  building:'<svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M17 11V3H7v4H3v14h8v-4h2v4h8V11h-4zM7 19H5v-2h2v2zm0-4H5v-2h2v2zm0-4H5v-2h2v2zm4 4H9v-2h2v2zm0-4H9v-2h2v2zm0-4H9V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2z"/></svg>',
+  home:'<svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>',
+  hammer:'<svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M15.5 2.1L11 6.6 8.4 4 3 9.4l2.8 2.8L2 16l6 6 3.8-3.8 2.8 2.8 5.4-5.4-2.6-2.6 4.5-4.5-2.4-6.4z"/></svg>',
+  gear:'<svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94L14.4 2.81c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41L9.25 5.35c-.59.24-1.13.56-1.62.94L5.24 5.33c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.63-.07.94s.02.64.07.94L2.86 14.52c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61L19.14 12.94zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>',
+  factory:'<svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M5 3H3v18h18V3H5zm12 16H7V5h10v14zM9 7H7v2h2V7zm4 0h-2v2h2V7zm4 0h-2v2h2V7zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>',
+  ruler:'<svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M21 6.5l-3.5-3.5-14 14 3.5 3.5 14-14zm-14 12L4.5 16l9-9L15 9.5l-8 9zM6 2v3H3v2h3v3h2V7h3V5H8V2H6z"/></svg>',
+  crane:'<svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M2 20h20v2H2v-2zm2-8h2v6H4v-6zm5 0h2v6H9v-6zm4 0h2v6h-2v-6zm5 0h2v6h-2v-6zM2 7l10-5 10 5v2H2V7zm10-3L6 7h12L12 4z"/></svg>',
+};
+function getIcon(k){return SVGS[k]||SVGS.building}
+
+function showNotice(msg,auto=true){
+  let el=document.getElementById('sb-notice');
+  if(!el){el=document.createElement('div');el.id='sb-notice';el.style.cssText='position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#232840;color:#fff;padding:10px 22px;border-radius:4px;font-size:13px;z-index:999;border:1px solid rgba(255,255,255,0.1)';document.body.appendChild(el)}
+  el.textContent=msg;el.style.display='block';
+  if(auto)setTimeout(()=>el.style.display='none',3000);
+}
+function hideNotice(){const el=document.getElementById('sb-notice');if(el)el.style.display='none'}
+
 async function sbLoad(){
-  if(!sb){showNotice('⚠ Supabase não configurado — usando dados locais.');return}
-  showNotice('Conectando ao banco de dados...',false);
+  showNotice('Conectando...',false);
   try{
     const[{data:ob},{data:cl},{data:at},{data:cf}]=await Promise.all([
       sb.from('obras').select('*').order('ordem'),
@@ -798,583 +840,39 @@ async function sbLoad(){
       sb.from('atuacao').select('*').order('ordem'),
       sb.from('config').select('*'),
     ]);
-    if(ob&&ob.length){obras=ob.map(r=>({id:r.id,nome:r.nome,cat:r.cat,clienteId:r.cliente_id,local:r.local,ano:r.ano,area:r.area,desc:r.descricao,foto:r.foto}))}
-    if(cl&&cl.length){clientes=cl.map(r=>({id:r.id,nome:r.nome,seg:r.segmento,desc:r.descricao,logo:r.logo}))}
-    if(at&&at.length){atuacaoData=at.map(r=>({id:r.id,titulo:r.titulo,desc:r.descricao,foto:r.foto}))}
+    if(ob&&ob.length)obras=ob.map(r=>({id:r.id,nome:r.nome,cat:r.cat,clienteId:r.cliente_id,local:r.local,ano:r.ano,area:r.area,desc:r.descricao,foto:r.foto,fotos:r.fotos_extras||[],fotoAntes:r.foto_antes||'',fotoDepois:r.foto_depois||''}));
+    if(cl&&cl.length)clientes=cl.map(r=>({id:r.id,nome:r.nome,seg:r.segmento,desc:r.descricao,logo:r.logo}));
+    if(at&&at.length)atuacaoData=at.map(r=>({id:r.id,titulo:r.titulo,desc:r.descricao,foto:r.foto}));
     if(cf&&cf.length){
       const cfg={};cf.forEach(r=>cfg[r.chave]=r.valor);
       siteData={phone:cfg.phone||DEF_SITE.phone,email:cfg.email||DEF_SITE.email,address:cfg.address||DEF_SITE.address,sub:cfg.hero_sub||DEF_SITE.sub,stat1:cfg.stat1||DEF_SITE.stat1,stat2:cfg.stat2||DEF_SITE.stat2};
       sobreData={foto:cfg.sobre_foto||DEF_SOBRE.foto,texto:cfg.sobre_texto||DEF_SOBRE.texto};
       if(cfg.atuacao_intro)sv('mca_atuacao_intro',cfg.atuacao_intro);
-      if(cfg.layout_json){try{layoutData=JSON.parse(cfg.layout_json)}catch(e){}}
+      if(cfg.layout_json)try{layoutData=JSON.parse(cfg.layout_json)}catch(e){}
     }
     hideNotice();
-  }catch(e){showNotice('Erro ao conectar. Usando dados locais.');console.error(e)}
-  renderHome();renderSobre();renderAtuacao();
+  }catch(e){showNotice('Erro ao conectar.');console.error(e)}
+  renderHome();renderSobre();renderAtuacao();renderClientes();
 }
-
-async function sbSaveConfig(chave,valor){
-  if(!sb)return;
-  await sb.from('config').upsert({chave,valor},{onConflict:'chave'});
-}
+async function sbCfg(k,v){await sb.from('config').upsert({chave:k,valor:v},{onConflict:'chave'})}
 async function sbSaveObra(d){
-  if(!sb)return d.id;
-  const row={nome:d.nome,cat:d.cat,cliente_id:d.clienteId||null,local:d.local,ano:d.ano,area:d.area,descricao:d.desc,foto:d.foto,ordem:d.id};
-  if(typeof d.id==='number'&&d.id<1e12){
-    await sb.from('obras').update(row).eq('id',d.id);return d.id;
-  }else{
-    const{data}=await sb.from('obras').insert(row).select('id').single();
-    return data?.id||d.id;
-  }
+  const row={nome:d.nome,cat:d.cat,cliente_id:d.clienteId||null,local:d.local,ano:d.ano,area:d.area,descricao:d.desc,foto:d.foto,fotos_extras:d.fotos||[],foto_antes:d.fotoAntes||'',foto_depois:d.fotoDepois||'',ordem:typeof d.id==='number'&&d.id<1e12?d.id:Date.now()};
+  if(typeof d.id==='number'&&d.id<1e12){await sb.from('obras').update(row).eq('id',d.id);return d.id}
+  const{data}=await sb.from('obras').insert(row).select('id').single();return data?.id||d.id;
 }
-async function sbDeleteObra(id){if(sb)await sb.from('obras').delete().eq('id',id)}
+async function sbDelObra(id){await sb.from('obras').delete().eq('id',id)}
 async function sbSaveCliente(d){
-  if(!sb)return d.id;
   const row={nome:d.nome,segmento:d.seg||'',descricao:d.desc||'',logo:d.logo||''};
-  if(typeof d.id==='number'&&d.id<1e12){
-    await sb.from('clientes').update(row).eq('id',d.id);return d.id;
-  }else{
-    const{data}=await sb.from('clientes').insert(row).select('id').single();
-    return data?.id||d.id;
-  }
+  if(typeof d.id==='number'&&d.id<1e12){await sb.from('clientes').update(row).eq('id',d.id);return d.id}
+  const{data}=await sb.from('clientes').insert(row).select('id').single();return data?.id||d.id;
 }
-async function sbDeleteCliente(id){if(sb)await sb.from('clientes').delete().eq('id',id)}
+async function sbDelCliente(id){await sb.from('clientes').delete().eq('id',id)}
 async function sbSaveAtuacao(list,intro){
-  if(!sb)return;
   await sb.from('atuacao').delete().neq('id',0);
   if(list.length)await sb.from('atuacao').insert(list.map((a,i)=>({titulo:a.titulo,descricao:a.desc,foto:a.foto,ordem:i+1})));
-  await sbSaveConfig('atuacao_intro',intro);
+  await sbCfg('atuacao_intro',intro);
 }
 
-function showNotice(msg,autoHide=true){
-  let el=document.getElementById('sb-notice');
-  if(!el){el=document.createElement('div');el.id='sb-notice';el.style.cssText='position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#232840;color:#fff;padding:10px 22px;border-radius:4px;font-size:13px;z-index:999;border:1px solid rgba(255,255,255,0.1)';document.body.appendChild(el)}
-  el.textContent=msg;el.style.display='block';
-  if(autoHide)setTimeout(()=>el.style.display='none',3500);
-}
-function hideNotice(){const el=document.getElementById('sb-notice');if(el)el.style.display='none'}
-
-// ══ MOBILE MENU ══
-function toggleMenu(){
-  const h=document.getElementById('hamburger');
-  const m=document.getElementById('mobile-menu');
-  h.classList.toggle('open');
-  m.classList.toggle('open');
-}
-function mobileNav(page){
-  document.getElementById('hamburger').classList.remove('open');
-  document.getElementById('mobile-menu').classList.remove('open');
-  if(page==='contato'){
-    showPage('home');
-    setTimeout(()=>document.getElementById('contato').scrollIntoView({behavior:'smooth'}),100);
-  } else {
-    showPage(page);
-  }
-  document.querySelectorAll('.mobile-menu a[data-page]').forEach(a=>a.classList.toggle('active',a.dataset.page===page));
-}
-
-// ══ PAGES ══
-function showPage(name){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
-  document.querySelectorAll('.nav-links a[data-page]').forEach(a=>a.classList.toggle('active',a.dataset.page===name));
-  document.querySelectorAll('.mobile-menu a[data-page]').forEach(a=>a.classList.toggle('active',a.dataset.page===name));
-  window.scrollTo(0,0);
-  if(name==='clientes')renderClientes();
-  if(name==='atuacao')renderAtuacao();
-  if(name==='sobre')renderSobre();
-}
-
-// ══ RENDER HOME ══
-function renderHome(){
-  applySiteData();
-  renderObrasGrid(obras);
-  applyLayout(layoutData);
-  renderFilters();
-  renderAboutStrip();
-}
-
-function applySiteData(){
-  document.getElementById('cta-phone').textContent=siteData.phone;
-  document.getElementById('cta-email').textContent=siteData.email;
-  document.getElementById('cta-address').textContent=siteData.address;
-  document.getElementById('hero-sub').textContent=siteData.sub;
-  document.getElementById('stat1').innerHTML=siteData.stat1;
-  document.getElementById('stat2').innerHTML=siteData.stat2+'<span> anos</span>';
-}
-
-function renderFilters(){
-  const cats=['Todos',...[...new Set(obras.map(o=>o.cat))].sort()];
-  const row=document.getElementById('sec-filters');
-  row.innerHTML=cats.map((c,i)=>`<button class="filter-btn${i===0?' active':''}" onclick="filterObras('${c==='Todos'?'todos':c}',this)">${c}</button>`).join('');
-}
-
-function renderObrasGrid(list){
-  const g=document.getElementById('obras-grid');
-  const layout=layoutData.gallery||'grid';
-  const r=layoutData.radius||0;
-  g.className='layout-'+layout;
-  g.innerHTML=list.map(o=>`
-    <div class="obra-card" style="border-radius:${r}px" onclick="openObra(${o.id})">
-      <img src="${o.foto}" alt="${o.nome}" loading="lazy" onerror="this.src='https://placehold.co/800x600/2E3450/FFFFFF?text=MCA'">
-      <div class="obra-overlay">
-        <span class="obra-cat">${o.cat}</span>
-        <div class="obra-nome">${o.nome}</div>
-        <div class="obra-local">📍 ${o.local}</div>
-      </div>
-      <div class="obra-hover-btn">Ver Detalhes</div>
-    </div>`).join('');
-}
-
-function renderAboutStrip(){
-  const items=layoutData.stripItems||[];
-  document.getElementById('about-dividers-list').innerHTML=items.map(it=>`
-    <div class="about-item"><div class="icon">${it.icon}</div><span>${it.label}</span></div>`).join('');
-}
-
-function filterObras(cat,btn){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderObrasGrid(cat==='todos'?obras:obras.filter(o=>o.cat===cat));
-}
-
-// ══ RENDER CLIENTES ══
-function renderClientes(){
-  const g=document.getElementById('clientes-grid');
-  g.innerHTML=clientes.map(c=>{
-    const obrasCli=obras.filter(o=>o.clienteId===c.id);
-    return `<div class="cliente-card" onclick="openCliente(${c.id})">
-      ${c.logo?`<img src="${c.logo}" alt="${c.nome}">`:`<div style="height:80px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--navy);opacity:0.4;text-align:center;line-height:1.2">${c.nome}</div>`}
-      <div class="cliente-nome">${c.nome}</div>
-      ${c.seg?`<div style="font-size:11px;color:#888;letter-spacing:0.05em">${c.seg}</div>`:''}
-      <div class="cliente-obras-count">${obrasCli.length} obra${obrasCli.length!==1?'s':''} realizada${obrasCli.length!==1?'s':''}</div>
-      <div class="cliente-card-overlay"></div>
-    </div>`;
-  }).join('');
-}
-
-function openCliente(id){
-  const c=clientes.find(x=>x.id===id);if(!c)return;
-  const obrasCli=obras.filter(o=>o.clienteId===id);
-  document.getElementById('cm-logo').src=c.logo||'';
-  document.getElementById('cm-logo').style.display=c.logo?'block':'none';
-  document.getElementById('cm-nome').textContent=c.nome;
-  document.getElementById('cm-desc').textContent=c.desc||c.seg||'';
-  document.getElementById('cm-obras').innerHTML=obrasCli.length?obrasCli.map(o=>`
-    <div class="cliente-obra-thumb" onclick="openObra(${o.id})">
-      <img src="${o.foto}" alt="${o.nome}" onerror="this.src='https://placehold.co/600x400/2E3450/FFFFFF?text=MCA'">
-      <div class="cliente-obra-label">${o.nome}</div>
-    </div>`).join(''):`<p style="color:#888;padding:20px;grid-column:1/-1">Nenhuma obra vinculada a este cliente ainda.</p>`;
-  document.getElementById('cliente-modal').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-
-// ══ RENDER ATUAÇÃO ══
-function renderAtuacao(){
-  document.getElementById('atuacao-intro-text').textContent=ld('mca_atuacao_intro','Da concepção à entrega, a MCA oferece soluções completas em construção e gestão de obras. Conheça nossas linhas de atuação.');
-  const cont=document.getElementById('atuacao-linhas');
-  cont.innerHTML=atuacaoData.map((a,i)=>`
-    <div class="atuacao-linha">
-      <div class="atuacao-linha-img">
-        <img src="${a.foto||'https://placehold.co/800x600/2E3450/FFFFFF?text=MCA'}" alt="${a.titulo}" onerror="this.src='https://placehold.co/800x600/2E3450/FFFFFF?text=MCA'">
-        <div class="atuacao-linha-img-overlay"></div>
-      </div>
-      <div class="atuacao-linha-text">
-        <div class="atuacao-num">0${i+1}</div>
-        <h3 class="atuacao-titulo">${a.titulo}</h3>
-        <p class="atuacao-desc">${a.desc}</p>
-      </div>
-    </div>`).join('');
-}
-
-// ══ RENDER SOBRE ══
-function renderSobre(){
-  if(sobreData.foto)document.getElementById('sobre-img').src=sobreData.foto;
-  if(sobreData.texto){
-    const paras=sobreData.texto.split('\n\n').filter(Boolean);
-    document.getElementById('sobre-text-body').innerHTML=paras.map(p=>`<p>${p}</p>`).join('');
-  }
-}
-
-// ══ OBRA MODAL ══
-function openObra(id){
-  const o=obras.find(x=>x.id===id);if(!o)return;
-  document.getElementById('modal-img').src=o.foto;
-  document.getElementById('modal-cat').textContent=o.cat;
-  document.getElementById('modal-nome').textContent=o.nome;
-  document.getElementById('modal-local').textContent=o.local;
-  document.getElementById('modal-ano').textContent=o.ano;
-  document.getElementById('modal-area').textContent=o.area;
-  document.getElementById('modal-desc').textContent=o.desc;
-  document.getElementById('obra-modal').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow=''}
-
-// ══ CONTACT FORM ══
-function enviarContato(){
-  const nome=document.getElementById('cf-nome').value.trim();
-  const email=document.getElementById('cf-email').value.trim();
-  const tel=document.getElementById('cf-tel').value.trim();
-  if(!nome||!email){showToast('Preencha nome e e-mail.');return}
-  const dest=siteData.email||'contato@mcaconstrucoes.com.br';
-  const msg=document.getElementById('cf-msg').value.trim();
-  const corpo=`Olá, MCA Construções!%0A%0ANome: ${encodeURIComponent(nome)}%0AE-mail: ${encodeURIComponent(email)}%0ATelefone: ${encodeURIComponent(tel)}%0A%0AMensagem:%0A${encodeURIComponent(msg||'Gostaria de solicitar um orçamento.')}`;
-  window.location.href=`mailto:${dest}?subject=${encodeURIComponent('Contato pelo site — '+nome)}&body=${corpo}`;
-  document.getElementById('cf-success').style.display='block';
-  document.getElementById('cf-nome').value='';
-  document.getElementById('cf-email').value='';
-  document.getElementById('cf-tel').value='';
-  document.getElementById('cf-msg').value='';
-}
-
-// ══ LAYOUT ══
-function applyLayout(l){
-  l=l||layoutData;
-  const r=document.documentElement.style;
-  r.setProperty('--navy',l.navy);r.setProperty('--navy2',adj(l.navy,-15));
-  r.setProperty('--orange',l.orange);r.setProperty('--orange2',adj(l.orange,-20));
-  r.setProperty('--light',l.light);
-  const g=document.getElementById('obras-grid');
-  g.className='layout-'+(l.gallery||'grid');
-  document.querySelectorAll('.obra-card').forEach(c=>c.style.borderRadius=(l.radius||0)+'px');
-  toggleSection('sec-stats',l.secStats!==false);
-  toggleSection('sec-about',l.secAbout!==false);
-  toggleSection('sec-filters',l.secFilters!==false);
-  applyFont(l.fontDisplay||'Barlow Condensed',l.fontBody||'Barlow');
-  renderAboutStrip();
-  renderFilters();
-}
-function adj(hex,amt){
-  let r=parseInt(hex.slice(1,3),16)+amt,g=parseInt(hex.slice(3,5),16)+amt,b=parseInt(hex.slice(5,7),16)+amt;
-  return '#'+[r,g,b].map(x=>Math.max(0,Math.min(255,x)).toString(16).padStart(2,'0')).join('');
-}
-function applyFont(display,body){
-  const fonts={'Barlow Condensed':'https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&family=Barlow:wght@300;400;500&display=swap','Oswald':'https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600&display=swap','Bebas Neue':'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@300;400;700&display=swap','Montserrat':'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap'};
-  const link=document.getElementById('font-link');
-  if(fonts[display])link.href=fonts[display];
-  document.documentElement.style.setProperty('--font-display',"'"+display+"', sans-serif");
-  document.documentElement.style.setProperty('--font-body',"'"+body+"', sans-serif");
-}
-function setLayout(type){layoutData.gallery=type;document.querySelectorAll('.gallery-opt').forEach(o=>o.classList.remove('selected'));document.getElementById('opt-'+type).classList.add('selected');applyLayout(layoutData)}
-function updateColor(key,val){layoutData[key]=val;document.getElementById('hex-'+key).textContent=val;applyLayout(layoutData)}
-function setFont(display,body,el){layoutData.fontDisplay=display;layoutData.fontBody=body;document.querySelectorAll('.font-opt').forEach(o=>o.classList.remove('selected'));el.classList.add('selected');applyFont(display,body)}
-function updateRadius(val){layoutData.radius=val;document.getElementById('radius-val').textContent=val+'px';document.getElementById('radius-preview').style.borderRadius=val+'px';document.querySelectorAll('.obra-card').forEach(c=>c.style.borderRadius=val+'px')}
-function toggleSection(id,show){const el=document.getElementById(id);if(el){if(show)el.classList.remove('section-hidden');else el.classList.add('section-hidden')}}
-function renderStripAdmin(){
-  const items=layoutData.stripItems||[];
-  const ICONS=['🏢','🏠','🏗️','🔧','⚙️','🏭','🏛️','🌆','📐','🪜','🧱','🔩'];
-  document.getElementById('strip-items-list').innerHTML=items.map((it,i)=>`
-    <div style="display:flex;align-items:center;gap:8px;background:#f8f8f8;border:1px solid #eee;border-radius:6px;padding:8px 12px">
-      <select onchange="updStripItem(${i},'icon',this.value)" style="border:1px solid #ddd;border-radius:4px;padding:4px 6px;font-size:18px;background:#fff;cursor:pointer">
-        ${ICONS.map(ic=>`<option value="${ic}"${ic===it.icon?' selected':''}>${ic}</option>`).join('')}
-      </select>
-      <input type="text" value="${escHtml(it.label)}" onchange="updStripItem(${i},'label',this.value)" placeholder="Texto do item" style="flex:1;border:1px solid #ddd;border-radius:4px;padding:6px 10px;font-size:13px;font-family:var(--font-body);outline:none">
-      <button onclick="delStripItem(${i})" style="background:#fee;color:#c00;border:1px solid #fcc;border-radius:3px;padding:4px 8px;cursor:pointer;font-size:12px">✕</button>
-    </div>`).join('');
-}
-function addStripItem(){
-  if(!layoutData.stripItems)layoutData.stripItems=[];
-  layoutData.stripItems.push({icon:'🏢',label:'Novo item'});
-  renderStripAdmin();renderAboutStrip();
-}
-function updStripItem(i,key,val){
-  if(!layoutData.stripItems)return;
-  layoutData.stripItems[i][key]=val;
-  renderAboutStrip();
-}
-function delStripItem(i){
-  layoutData.stripItems.splice(i,1);
-  renderStripAdmin();renderAboutStrip();
-}
-
-async function salvarLayout(){
-  sv('mca_layout',layoutData);
-  await sbSaveConfig('layout_json',JSON.stringify(layoutData));
-  showToast('Layout salvo!');
-}
-
-function loadLayoutForm(){
-  const l=layoutData;
-  document.querySelectorAll('.gallery-opt').forEach(o=>o.classList.remove('selected'));
-  const op=document.getElementById('opt-'+(l.gallery||'grid'));if(op)op.classList.add('selected');
-  ['navy','orange','light'].forEach(k=>{const el=document.getElementById('c-'+k);if(el){el.value=l[k]||'';document.getElementById('hex-'+k).textContent=l[k]||''}});
-  document.getElementById('radius-range').value=l.radius||0;
-  document.getElementById('radius-val').textContent=(l.radius||0)+'px';
-  document.getElementById('radius-preview').style.borderRadius=(l.radius||0)+'px';
-  document.getElementById('tog-stats').checked=l.secStats!==false;
-  document.getElementById('tog-about').checked=l.secAbout!==false;
-  document.getElementById('tog-filters').checked=l.secFilters!==false;
-  renderStripAdmin();
-}
-
-// ══ ADMIN ══
-function openAdmin(){
-  document.getElementById('admin-panel').classList.add('open');
-  document.body.style.overflow='hidden';
-  if(!isLoggedIn){document.getElementById('admin-login-screen').style.display='block';document.getElementById('admin-main').style.display='none'}
-  else showAdminMain();
-}
-function closeAdmin(){document.getElementById('admin-panel').classList.remove('open');document.body.style.overflow=''}
-function getSenha(){return localStorage.getItem('mca_senha')||'mca2024'}
-
-function checkLogin(){
-  if(document.getElementById('admin-password').value===getSenha()){
-    isLoggedIn=true;
-    document.getElementById('admin-login-screen').style.display='none';
-    document.getElementById('admin-password').value='';
-    showAdminMain();
-  } else {
-    document.getElementById('login-error').style.display='block';
-  }
-}
-
-function trocarSenha(){
-  const atual=document.getElementById('pw-atual').value;
-  const nova=document.getElementById('pw-nova').value;
-  const confirma=document.getElementById('pw-confirma').value;
-  document.getElementById('pw-atual-erro').style.display='none';
-  document.getElementById('pw-confirma-erro').style.display='none';
-  if(atual!==getSenha()){document.getElementById('pw-atual-erro').style.display='block';return}
-  if(nova.length<6){alert('A nova senha precisa ter pelo menos 6 caracteres.');return}
-  if(nova!==confirma){document.getElementById('pw-confirma-erro').style.display='block';return}
-  localStorage.setItem('mca_senha',nova);
-  document.getElementById('pw-atual').value='';
-  document.getElementById('pw-nova').value='';
-  document.getElementById('pw-confirma').value='';
-  showToast('Senha alterada com sucesso!');
-}
-function showAdminMain(){
-  document.getElementById('admin-main').style.display='block';
-  renderAdminObras();renderAdminClientes();loadSiteForm();loadLayoutForm();loadAtuacaoForm();loadSobreForm();
-}
-function switchTab(tab,btn){
-  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.admin-tab-pane').forEach(p=>p.classList.remove('active'));
-  document.getElementById('tab-'+tab).classList.add('active');
-  btn.classList.add('active');
-}
-
-// ══ OBRAS ADMIN ══
-function renderAdminObras(){
-  const list=document.getElementById('obras-admin-list');
-  if(!obras.length){list.innerHTML='<p style="color:#888;text-align:center;padding:24px">Nenhuma obra ainda.</p>';return}
-  const popClienteSelect=()=>{
-    const sel=document.getElementById('n-cliente-ref');
-    sel.innerHTML='<option value="">— Nenhum —</option>'+clientes.map(c=>`<option value="${c.id}">${c.nome}</option>`).join('');
-  };
-  popClienteSelect();
-  list.innerHTML=obras.map(o=>`
-    <div class="list-item">
-      <img class="list-item-thumb" src="${o.foto}" onerror="this.style.background='#ddd'">
-      <div class="list-item-info"><div class="list-item-name">${o.nome}</div><div class="list-item-meta">${o.cat} · ${o.local} · ${o.ano}</div></div>
-      <div class="list-item-actions"><button class="btn-edit" onclick="editObra(${o.id})">Editar</button><button class="btn-del" onclick="delObra(${o.id})">✕</button></div>
-    </div>`).join('');
-}
-
-function editObra(id){
-  const o=obras.find(x=>x.id===id);if(!o)return;
-  editingObra=id;
-  document.getElementById('n-nome').value=o.nome;
-  document.getElementById('n-cat').value=o.cat;
-  document.getElementById('n-local').value=o.local;
-  document.getElementById('n-ano').value=o.ano;
-  document.getElementById('n-area').value=o.area;
-  document.getElementById('n-desc').value=o.desc;
-  const sel=document.getElementById('n-cliente-ref');
-  if(sel)sel.value=o.clienteId||'';
-  document.getElementById('foto-preview').innerHTML=`<img src="${o.foto}" class="main-foto">`;
-  const btn=document.querySelector('[data-tab="nova-obra"]');
-  switchTab('nova-obra',btn);
-}
-async function delObra(id){
-  if(!confirm('Excluir esta obra?'))return;
-  await sbDeleteObra(id);
-  obras=obras.filter(o=>o.id!==id);sv('mca_obras',obras);renderAdminObras();renderObrasGrid(obras);showToast('Obra excluída.');
-}
-async function salvarObra(){
-  const nome=document.getElementById('n-nome').value.trim();
-  if(!nome){alert('Informe o nome.');return}
-  let foto=obraFotos.length?URL.createObjectURL(obraFotos[0]):(editingObra?obras.find(o=>o.id===editingObra)?.foto:'https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?w=800&q=80');
-  const selCli=document.getElementById('n-cliente-ref');
-  const d={id:editingObra||Date.now(),nome,cat:document.getElementById('n-cat').value,clienteId:selCli&&selCli.value?parseInt(selCli.value):null,local:document.getElementById('n-local').value||'São Paulo, SP',ano:document.getElementById('n-ano').value||'2024',area:document.getElementById('n-area').value||'—',desc:document.getElementById('n-desc').value||'',foto};
-  showNotice('Salvando...',false);
-  const newId=await sbSaveObra(d);
-  d.id=newId;
-  if(editingObra)obras=obras.map(o=>o.id===editingObra?d:o);else obras.push(d);
-  sv('mca_obras',obras);
-  editingObra=null;obraFotos=[];
-  renderObrasGrid(obras);renderAdminObras();limparForm('obra');
-  hideNotice();showToast('Obra salva!');switchTab('obras',document.querySelector('[data-tab="obras"]'));
-}
-function limparForm(type){
-  if(type==='obra'){['n-nome','n-local','n-ano','n-area','n-desc'].forEach(id=>document.getElementById(id).value='');document.getElementById('n-cat').value='Residencial';document.getElementById('foto-preview').innerHTML='';obraFotos=[];editingObra=null}
-  if(type==='cliente'){['cl-nome','cl-seg','cl-desc'].forEach(id=>document.getElementById(id).value='');document.getElementById('cl-logo-preview').innerHTML='';clienteLogo=null;editingCliente=null}
-}
-
-// ══ CLIENTES ADMIN ══
-function renderAdminClientes(){
-  const list=document.getElementById('clientes-admin-list');
-  list.innerHTML=clientes.map(c=>`
-    <div class="list-item">
-      ${c.logo?`<img class="list-item-thumb" src="${c.logo}" style="object-fit:contain;background:#f0f0f0">`:`<div class="list-item-thumb" style="background:#eee;display:flex;align-items:center;justify-content:center;font-size:10px;color:#999;text-align:center">${c.nome}</div>`}
-      <div class="list-item-info"><div class="list-item-name">${c.nome}</div><div class="list-item-meta">${c.seg||''}</div></div>
-      <div class="list-item-actions"><button class="btn-edit" onclick="editCliente(${c.id})">Editar</button><button class="btn-del" onclick="delCliente(${c.id})">✕</button></div>
-    </div>`).join('');
-}
-function editCliente(id){
-  const c=clientes.find(x=>x.id===id);if(!c)return;
-  editingCliente=id;
-  document.getElementById('cl-nome').value=c.nome;
-  document.getElementById('cl-seg').value=c.seg||'';
-  document.getElementById('cl-desc').value=c.desc||'';
-  if(c.logo)document.getElementById('cl-logo-preview').innerHTML=`<img src="${c.logo}" class="main-foto" style="height:50px;width:auto;object-fit:contain">`;
-}
-async function delCliente(id){
-  if(!confirm('Excluir cliente?'))return;
-  await sbDeleteCliente(id);
-  clientes=clientes.filter(c=>c.id!==id);sv('mca_clientes',clientes);renderAdminClientes();renderClientes();showToast('Cliente excluído.');
-}
-async function salvarCliente(){
-  const nome=document.getElementById('cl-nome').value.trim();if(!nome){alert('Informe o nome.');return}
-  const logo=clienteLogo||(editingCliente?clientes.find(c=>c.id===editingCliente)?.logo:'');
-  const d={id:editingCliente||Date.now(),nome,seg:document.getElementById('cl-seg').value,desc:document.getElementById('cl-desc').value,logo:logo||''};
-  showNotice('Salvando...',false);
-  const newId=await sbSaveCliente(d);d.id=newId;
-  if(editingCliente)clientes=clientes.map(c=>c.id===editingCliente?d:c);else clientes.push(d);
-  editingCliente=null;clienteLogo=null;
-  sv('mca_clientes',clientes);renderAdminClientes();renderClientes();limparForm('cliente');
-  hideNotice();showToast('Cliente salvo!');
-}
-
-// ══ ATUAÇÃO ADMIN ══
-function loadAtuacaoForm(){
-  atuacaoTemp=JSON.parse(JSON.stringify(atuacaoData));
-  document.getElementById('at-intro').value=ld('mca_atuacao_intro','Da concepção à entrega, a MCA oferece soluções completas em construção e gestão de obras. Conheça nossas linhas de atuação.');
-  renderAtuacaoAdmin();
-}
-function renderAtuacaoAdmin(){
-  const cont=document.getElementById('atuacao-admin-list');
-  cont.innerHTML=atuacaoTemp.map((a,i)=>`
-    <div class="atuacao-admin-item" id="at-item-${a.id}">
-      <div class="atuacao-admin-item-header">
-        <span class="atuacao-admin-num">0${i+1}</span>
-        <span class="atuacao-admin-title">${a.titulo||'(sem título)'}</span>
-        <button class="btn-del" onclick="delAtuacaoItem(${a.id})" style="margin-left:auto">✕</button>
-      </div>
-      <div class="atuacao-admin-body">
-        <div class="form-group"><label>Título</label><input type="text" value="${escHtml(a.titulo)}" onchange="updAt(${a.id},'titulo',this.value)"></div>
-        <div class="form-group"><label>Foto</label>
-          <div class="upload-area" style="padding:12px" onclick="document.getElementById('at-foto-${a.id}').click()">
-            <div style="font-size:14px">📷 ${a.foto?'Trocar foto':'Enviar foto'}</div>
-          </div>
-          <input type="file" id="at-foto-${a.id}" accept="image/*" style="display:none" onchange="handleAtFoto(this,${a.id})">
-          ${a.foto?`<img src="${a.foto}" style="height:48px;width:auto;margin-top:6px;border-radius:3px;object-fit:cover">`:''}
-        </div>
-        <div class="form-group full"><label>Descrição</label><textarea onchange="updAt(${a.id},'desc',this.value)" style="border:1px solid #ddd;border-radius:4px;padding:8px;font-size:13px;font-family:var(--font-body);width:100%;height:72px;outline:none">${escHtml(a.desc)}</textarea></div>
-      </div>
-    </div>`).join('');
-}
-function escHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-function updAt(id,key,val){const a=atuacaoTemp.find(x=>x.id===id);if(a)a[key]=val}
-function delAtuacaoItem(id){atuacaoTemp=atuacaoTemp.filter(a=>a.id!==id);renderAtuacaoAdmin()}
-function addAtuacaoItem(){atuacaoTemp.push({id:Date.now(),titulo:'Nova linha de atuação',desc:'',foto:''});renderAtuacaoAdmin()}
-function handleAtFoto(input,id){
-  const f=input.files[0];if(!f)return;
-  const url=URL.createObjectURL(f);
-  updAt(id,'foto',url);renderAtuacaoAdmin();
-}
-async function salvarAtuacao(){
-  atuacaoData=JSON.parse(JSON.stringify(atuacaoTemp));
-  const intro=document.getElementById('at-intro').value;
-  showNotice('Salvando...',false);
-  sv('mca_atuacao',atuacaoData);sv('mca_atuacao_intro',intro);
-  await sbSaveAtuacao(atuacaoData,intro);
-  hideNotice();renderAtuacao();showToast('Atuação salva!');
-}
-
-// ══ SOBRE ADMIN ══
-function loadSobreForm(){
-  document.getElementById('sobre-texto').value=sobreData.texto||'';
-  if(sobreData.foto)document.getElementById('sobre-foto-preview').innerHTML=`<img src="${sobreData.foto}" class="main-foto" style="height:60px;width:auto;border-radius:3px;object-fit:cover">`;
-}
-async function salvarSobre(){
-  sobreData.texto=document.getElementById('sobre-texto').value;
-  if(sobreFoto)sobreData.foto=sobreFoto;
-  showNotice('Salvando...',false);
-  sv('mca_sobre',sobreData);
-  await sbSaveConfig('sobre_texto',sobreData.texto);
-  await sbSaveConfig('sobre_foto',sobreData.foto||'');
-  hideNotice();renderSobre();showToast('Página Sobre salva!');
-}
-
-// ══ FILE UPLOADS ══
-function handleFotos(files,previewId,varName){
-  if(varName==='obraFotos')obraFotos=Array.from(files);
-  document.getElementById(previewId).innerHTML=Array.from(files).map((f,i)=>`<img src="${URL.createObjectURL(f)}" class="${i===0?'main-foto':''}">`).join('');
-}
-function handleSingleFoto(input,previewId,varName){
-  const f=input.files[0];if(!f)return;
-  const url=URL.createObjectURL(f);
-  if(varName==='clienteLogo')clienteLogo=url;
-  if(varName==='sobreFoto')sobreFoto=url;
-  document.getElementById(previewId).innerHTML=`<img src="${url}" class="main-foto" style="height:60px;width:auto;border-radius:3px;object-fit:contain">`;
-}
-
-// ══ SITE DATA ══
-function loadSiteForm(){
-  document.getElementById('s-phone').value=siteData.phone;
-  document.getElementById('s-email').value=siteData.email;
-  document.getElementById('s-address').value=siteData.address;
-  document.getElementById('s-sub').value=siteData.sub;
-  document.getElementById('s-stat1').value=siteData.stat1;
-  document.getElementById('s-stat2').value=siteData.stat2;
-}
-async function salvarSite(){
-  siteData={phone:document.getElementById('s-phone').value,email:document.getElementById('s-email').value,address:document.getElementById('s-address').value,sub:document.getElementById('s-sub').value,stat1:document.getElementById('s-stat1').value,stat2:document.getElementById('s-stat2').value};
-  showNotice('Salvando...',false);
-  sv('mca_site',siteData);
-  await Promise.all([
-    sbSaveConfig('phone',siteData.phone),
-    sbSaveConfig('email',siteData.email),
-    sbSaveConfig('address',siteData.address),
-    sbSaveConfig('hero_sub',siteData.sub),
-    sbSaveConfig('stat1',siteData.stat1),
-    sbSaveConfig('stat2',siteData.stat2),
-  ]);
-  applySiteData();hideNotice();showToast('Dados salvos!');
-}
-
-// ══ TOAST ══
-function showToast(msg){const t=document.getElementById('toast');t.textContent='✓ '+msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
-
-// ══ HERO DOTS ══
-function buildHeroDots(){const el=document.getElementById('hero-dots');for(let i=0;i<24;i++){const s=document.createElement('span');if(i>=18)s.classList.add('o');el.appendChild(s)}}
-
-// ══ CLOSE ON BACKDROP ══
-['obra-modal','cliente-modal','admin-panel'].forEach(id=>{
-  document.getElementById(id).addEventListener('click',function(e){if(e.target===this){if(id==='admin-panel')closeAdmin();else closeModal(id)}});
-});
-
-// ══ INIT ══
-buildHeroDots();
-renderHome();
-renderSobre();
-renderAtuacao();
-sbLoad();
-
-// expose functions to window for inline onclick handlers (module scope)
-Object.assign(window,{showPage,toggleMenu,mobileNav,openObra,closeModal,openCliente,filterObras,enviarContato,openAdmin,closeAdmin,checkLogin,trocarSenha,switchTab,editObra,delObra,salvarObra,limparForm,handleFotos,handleSingleFoto,editCliente,delCliente,salvarCliente,loadAtuacaoForm,renderAtuacaoAdmin,updAt,delAtuacaoItem,addAtuacaoItem,handleAtFoto,salvarAtuacao,loadSobreForm,salvarSobre,loadSiteForm,salvarSite,salvarLayout,setLayout,updateColor,setFont,updateRadius,toggleSection,renderStripAdmin,addStripItem,updStripItem,delStripItem,loadLayoutForm,escHtml});
-</script>
-</body>
-</html>
-border:1px solid rgba(255,255,255,0.1)';document.body.appendChild(el)}
-  el.textContent=msg;el.style.display='block';
-  if(auto)setTimeout(()=>el.style.display='none',3000);
-}
-function hideNotice(){const el=document.getElementById('sb-notice');if(el)el.style.display='none'}
-
-// PAGES
 function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
@@ -1391,7 +889,6 @@ function mobileNav(page){
   if(page==='contato')goContato();else showPage(page);
 }
 
-// RENDER HOME
 function renderHome(){applySiteData();renderObrasGrid(obras);renderFilters('home');renderAboutStrip();applyLayout(layoutData)}
 function applySiteData(){
   document.getElementById('cta-phone').textContent=siteData.phone;
@@ -1401,7 +898,7 @@ function applySiteData(){
   document.getElementById('stat1').innerHTML=siteData.stat1;
   document.getElementById('stat2').innerHTML=siteData.stat2+'<span> anos</span>';
 }
-
+function escHtml(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function obraCards(list){
   const r=layoutData.radius||0;
   return list.map(o=>`
@@ -1410,26 +907,21 @@ function obraCards(list){
       <div class="obra-overlay">
         <span class="obra-cat">${o.cat}</span>
         <div class="obra-nome">${o.nome}</div>
-        <div class="obra-local"><svg viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)" width="12" height="12"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>${o.local}</div>
+        <div class="obra-local"><svg viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)" width="12" height="12" style="margin-right:4px;vertical-align:middle"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>${o.local}</div>
       </div>
       <div class="obra-hover-btn">Ver Detalhes</div>
     </div>`).join('');
 }
-function renderObrasGrid(list){
-  const g=document.getElementById('obras-grid');
-  g.className='layout-'+(layoutData.gallery||'grid');
-  g.innerHTML=obraCards(list);
-}
+function renderObrasGrid(list){const g=document.getElementById('obras-grid');g.className='layout-'+(layoutData.gallery||'grid');g.innerHTML=obraCards(list)}
 function renderObrasPage(list){
   renderFilters('page');
-  const g=document.getElementById('obras-page-grid');
-  g.className='layout-'+(layoutData.gallery||'grid');
-  g.innerHTML=obraCards(list);
+  const g=document.getElementById('obras-page-grid');g.className='layout-'+(layoutData.gallery||'grid');g.innerHTML=obraCards(list);
 }
 function renderFilters(target){
   const cats=['Todos',...[...new Set(obras.map(o=>o.cat))].sort()];
   const id=target==='home'?'sec-filters':'sec-filters-page';
-  document.getElementById(id).innerHTML=cats.map((c,i)=>`<button class="filter-btn${i===0?' active':''}" onclick="filterObras('${c==='Todos'?'todos':c}',this,'${target}')">${c}</button>`).join('');
+  const el=document.getElementById(id);if(!el)return;
+  el.innerHTML=cats.map((c,i)=>`<button class="filter-btn${i===0?' active':''}" onclick="filterObras('${c==='Todos'?'todos':c}',this,'${target}')">${c}</button>`).join('');
 }
 function filterObras(cat,btn,target){
   const id=target==='home'?'sec-filters':'sec-filters-page';
@@ -1441,19 +933,13 @@ function filterObras(cat,btn,target){
 function renderAboutStrip(){
   const items=layoutData.stripItems||[];
   document.getElementById('about-dividers-list').innerHTML=items.map(it=>`
-    <div class="about-item">
-      <div class="icon-wrap">${getIcon(it.icon)}</div>
-      <span>${it.label}</span>
-    </div>`).join('');
+    <div class="about-item"><div class="icon-wrap">${getIcon(it.icon)}</div><span>${it.label}</span></div>`).join('');
 }
 
-// CAROUSEL
 function buildCarousel(slides){
   carouselSlides=slides;carouselCurrent=0;
-  const track=document.getElementById('carousel-track');
-  track.innerHTML=slides.map(s=>`<div class="carousel-slide"><img src="${s}" alt="" onerror="this.src='https://placehold.co/960x480/2E3450/FFFFFF?text=MCA'"></div>`).join('');
-  const dots=document.getElementById('carousel-dots');
-  dots.innerHTML=slides.length>1?slides.map((_,i)=>`<button class="carousel-dot${i===0?' active':''}" onclick="goSlide(${i})"></button>`).join(''):'';
+  document.getElementById('carousel-track').innerHTML=slides.map(s=>`<div class="carousel-slide"><img src="${s}" alt="" onerror="this.src='https://placehold.co/960x480/2E3450/FFFFFF?text=MCA'"></div>`).join('');
+  document.getElementById('carousel-dots').innerHTML=slides.length>1?slides.map((_,i)=>`<button class="carousel-dot${i===0?' active':''}" onclick="goSlide(${i})"></button>`).join(''):'';
   document.querySelector('.carousel-prev').style.display=slides.length>1?'flex':'none';
   document.querySelector('.carousel-next').style.display=slides.length>1?'flex':'none';
   updateCarousel();
@@ -1467,11 +953,9 @@ function carouselPrev(){carouselCurrent=(carouselCurrent-1+carouselSlides.length
 function carouselNext(){carouselCurrent=(carouselCurrent+1)%carouselSlides.length;updateCarousel()}
 function goSlide(i){carouselCurrent=i;updateCarousel()}
 
-// OBRA MODAL
 function openObra(id){
   const o=obras.find(x=>x.id===id);if(!o)return;
-  const allFotos=[o.foto,...(o.fotos||[])].filter(Boolean);
-  buildCarousel(allFotos);
+  buildCarousel([o.foto,...(o.fotos||[])].filter(Boolean));
   document.getElementById('modal-cat').textContent=o.cat;
   document.getElementById('modal-nome').textContent=o.nome;
   document.getElementById('modal-local').textContent=o.local;
@@ -1479,17 +963,12 @@ function openObra(id){
   document.getElementById('modal-area').textContent=o.area;
   document.getElementById('modal-desc').textContent=o.desc;
   const adSec=document.getElementById('antes-depois-section');
-  if(o.fotoAntes&&o.fotoDepois){
-    document.getElementById('ad-antes').src=o.fotoAntes;
-    document.getElementById('ad-depois').src=o.fotoDepois;
-    adSec.style.display='block';
-  }else{adSec.style.display='none'}
-  document.getElementById('obra-modal').classList.add('open');
-  document.body.style.overflow='hidden';
+  if(o.fotoAntes&&o.fotoDepois){document.getElementById('ad-antes').src=o.fotoAntes;document.getElementById('ad-depois').src=o.fotoDepois;adSec.style.display='block'}
+  else adSec.style.display='none';
+  document.getElementById('obra-modal').classList.add('open');document.body.style.overflow='hidden';
 }
 function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow=''}
 
-// CLIENTES
 function renderClientes(){
   document.getElementById('clientes-grid').innerHTML=clientes.map(c=>{
     const n=obras.filter(o=>o.clienteId===c.id).length;
@@ -1513,24 +992,18 @@ function openCliente(id){
       <img src="${o.foto}" alt="${escHtml(o.nome)}" onerror="this.src='https://placehold.co/600x400/2E3450/FFFFFF?text=MCA'">
       <div class="cliente-obra-label">${o.nome}</div>
     </div>`).join(''):`<p style="color:#888;padding:20px">Nenhuma obra vinculada.</p>`;
-  document.getElementById('cliente-modal').classList.add('open');
-  document.body.style.overflow='hidden';
+  document.getElementById('cliente-modal').classList.add('open');document.body.style.overflow='hidden';
 }
 
-// SOBRE / ATUAÇÃO
 function renderSobre(){
   if(sobreData.foto)document.getElementById('sobre-img').src=sobreData.foto;
   if(sobreData.texto)document.getElementById('sobre-text-body').innerHTML=sobreData.texto.split('\n\n').filter(Boolean).map(p=>`<p>${p}</p>`).join('');
 }
 function renderAtuacao(){
-  const intro=ld('mca_atuacao_intro','Da concepção à entrega, a MCA oferece soluções completas.');
-  document.getElementById('atuacao-intro-text').textContent=intro;
+  document.getElementById('atuacao-intro-text').textContent=ld('mca_atuacao_intro','Da concepção à entrega, a MCA oferece soluções completas.');
   document.getElementById('atuacao-linhas').innerHTML=atuacaoData.map((a,i)=>`
     <div class="atuacao-linha">
-      <div class="atuacao-linha-img">
-        <img src="${a.foto||'https://placehold.co/800x600/2E3450/FFFFFF?text=MCA'}" alt="${escHtml(a.titulo)}">
-        <div class="atuacao-linha-img-overlay"></div>
-      </div>
+      <div class="atuacao-linha-img"><img src="${a.foto||'https://placehold.co/800x600/2E3450/FFFFFF?text=MCA'}" alt="${escHtml(a.titulo)}"><div class="atuacao-linha-img-overlay"></div></div>
       <div class="atuacao-linha-text">
         <div class="atuacao-num">0${i+1}</div>
         <h3 class="atuacao-titulo">${a.titulo}</h3>
@@ -1539,14 +1012,13 @@ function renderAtuacao(){
     </div>`).join('');
 }
 
-// LAYOUT
 function applyLayout(l){
   l=l||layoutData;
   const r=document.documentElement.style;
   r.setProperty('--navy',l.navy);r.setProperty('--navy2',adj(l.navy,-15));
   r.setProperty('--orange',l.orange);r.setProperty('--orange2',adj(l.orange,-20));
   r.setProperty('--light',l.light);
-  document.getElementById('obras-grid').className='layout-'+(l.gallery||'grid');
+  const g=document.getElementById('obras-grid');if(g)g.className='layout-'+(l.gallery||'grid');
   document.querySelectorAll('.obra-card').forEach(c=>c.style.borderRadius=(l.radius||0)+'px');
   toggleSection('sec-stats',l.secStats!==false);
   toggleSection('sec-about',l.secAbout!==false);
@@ -1580,16 +1052,12 @@ function loadLayoutForm(){
   document.getElementById('tog-filters').checked=l.secFilters!==false;
   renderStripAdmin();
 }
-
-// STRIP ITEMS
 const ICON_OPTS=[{k:'building',l:'Prédio'},{k:'home',l:'Casa'},{k:'hammer',l:'Martelo'},{k:'gear',l:'Engrenagem'},{k:'factory',l:'Fábrica'},{k:'ruler',l:'Régua'},{k:'crane',l:'Guindaste'}];
 function renderStripAdmin(){
   const items=layoutData.stripItems||[];
   document.getElementById('strip-items-list').innerHTML=items.map((it,i)=>`
     <div class="strip-item-row">
-      <select class="strip-icon-select" onchange="updStripItem(${i},'icon',this.value)">
-        ${ICON_OPTS.map(o=>`<option value="${o.k}"${o.k===it.icon?' selected':''}>${o.l}</option>`).join('')}
-      </select>
+      <select class="strip-icon-select" onchange="updStripItem(${i},'icon',this.value)">${ICON_OPTS.map(o=>`<option value="${o.k}"${o.k===it.icon?' selected':''}>${o.l}</option>`).join('')}</select>
       <input class="strip-text-input" type="text" value="${escHtml(it.label)}" onchange="updStripItem(${i},'label',this.value)" placeholder="Texto">
       <button onclick="delStripItem(${i})" style="background:#fee;color:#c00;border:1px solid #fcc;border-radius:3px;padding:4px 8px;cursor:pointer;font-size:12px">✕</button>
     </div>`).join('');
@@ -1598,7 +1066,6 @@ function addStripItem(){if(!layoutData.stripItems)layoutData.stripItems=[];layou
 function updStripItem(i,key,val){if(!layoutData.stripItems)return;layoutData.stripItems[i][key]=val;renderAboutStrip()}
 function delStripItem(i){layoutData.stripItems.splice(i,1);renderStripAdmin();renderAboutStrip()}
 
-// ADMIN
 function openAdmin(){
   document.getElementById('admin-panel').classList.add('open');document.body.style.overflow='hidden';
   if(!isLoggedIn){document.getElementById('admin-login-screen').style.display='block';document.getElementById('admin-main').style.display='none'}
@@ -1620,7 +1087,6 @@ function switchTab(tab,btn){
   document.getElementById('tab-'+tab).classList.add('active');btn.classList.add('active');
 }
 
-// FOTO UPLOADS
 function handleFotosObra(files){
   Array.from(files).forEach(f=>obraFotos.push({url:URL.createObjectURL(f)}));
   renderFotoPreview();
@@ -1628,15 +1094,15 @@ function handleFotosObra(files){
 function renderFotoPreview(){
   document.getElementById('foto-preview').innerHTML=obraFotos.map((f,i)=>`
     <div class="foto-preview-item">
-      <img src="${f.url}" class="${i===0?'main-foto':''}" onclick="openFotoFullscreen('${f.url}')" title="Clique para ver em tela cheia">
-      ${i===0?'<div class="main-badge">CAPA</div>':'<button class="foto-set-main" onclick="setMainFoto(${i})">↑ Capa</button>'}
+      <img src="${f.url}" class="${i===0?'main-foto':''}" onclick="openFotoFullscreen('${f.url}')" title="Ver em tela cheia">
+      ${i===0?'<div class="main-badge">CAPA</div>':'<button class="foto-set-main" onclick="setMainFoto('+i+')">↑ Capa</button>'}
       <button class="del-foto" onclick="removeFoto(${i})">×</button>
     </div>`).join('');
 }
 function setMainFoto(i){const[m]=obraFotos.splice(i,1);obraFotos.unshift(m);renderFotoPreview()}
 function removeFoto(i){obraFotos.splice(i,1);renderFotoPreview()}
-function openFotoFullscreen(url){document.getElementById('foto-fullscreen-img').src=url;document.getElementById('foto-fullscreen').classList.add('open')}
-function closeFotoFullscreen(){document.getElementById('foto-fullscreen').classList.remove('open')}
+function openFotoFullscreen(url){const el=document.getElementById('foto-fullscreen');document.getElementById('foto-fullscreen-img').src=url;el.style.display='flex'}
+function closeFotoFullscreen(){document.getElementById('foto-fullscreen').style.display='none'}
 function handleSingleUpload(input,previewId,varName){
   const f=input.files[0];if(!f)return;
   const url=URL.createObjectURL(f);
@@ -1647,7 +1113,6 @@ function handleSingleUpload(input,previewId,varName){
   document.getElementById(previewId).innerHTML=`<div class="foto-preview-item"><img src="${url}" class="main-foto" style="width:auto;height:60px;object-fit:contain" onclick="openFotoFullscreen('${url}')"></div>`;
 }
 
-// OBRAS ADMIN
 function renderAdminObras(){
   const sel=document.getElementById('n-cliente-ref');
   if(sel)sel.innerHTML='<option value="">— Nenhum —</option>'+clientes.map(c=>`<option value="${c.id}">${c.nome}</option>`).join('');
@@ -1701,7 +1166,6 @@ function limparFormObra(){
   obraFotos=[];fotoAntes=null;fotoDepois=null;editingObra=null;
 }
 
-// CLIENTES ADMIN
 function renderAdminClientes(){
   document.getElementById('clientes-admin-list').innerHTML=clientes.map(c=>`
     <div class="list-item">
@@ -1738,7 +1202,6 @@ function limparFormCliente(){
   document.getElementById('cl-logo-preview').innerHTML='';clienteLogo=null;editingCliente=null;
 }
 
-// ATUAÇÃO ADMIN
 function loadAtuacaoForm(){
   atuacaoTemp=JSON.parse(JSON.stringify(atuacaoData));
   document.getElementById('at-intro').value=ld('mca_atuacao_intro','Da concepção à entrega, a MCA oferece soluções completas.');
@@ -1763,7 +1226,6 @@ function renderAtuacaoAdmin(){
       </div>
     </div>`).join('');
 }
-function escHtml(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function updAt(id,key,val){const a=atuacaoTemp.find(x=>x.id===id);if(a)a[key]=val}
 function delAtuacaoItem(id){atuacaoTemp=atuacaoTemp.filter(a=>a.id!==id);renderAtuacaoAdmin()}
 function addAtuacaoItem(){atuacaoTemp.push({id:Date.now(),titulo:'Nova linha de atuação',desc:'',foto:''});renderAtuacaoAdmin()}
@@ -1776,7 +1238,6 @@ async function salvarAtuacao(){
   hideNotice();renderAtuacao();showToast('Atuação salva!');
 }
 
-// SOBRE ADMIN
 function loadSobreForm(){
   document.getElementById('sobre-texto').value=sobreData.texto||'';
   if(sobreData.foto)document.getElementById('sobre-foto-preview').innerHTML=`<div class="foto-preview-item"><img src="${sobreData.foto}" style="height:60px;width:auto" class="main-foto" onclick="openFotoFullscreen('${sobreData.foto}')"></div>`;
@@ -1785,12 +1246,10 @@ async function salvarSobre(){
   sobreData.texto=document.getElementById('sobre-texto').value;
   if(sobreFoto)sobreData.foto=sobreFoto;
   showNotice('Salvando...',false);sv('mca_sobre',sobreData);
-  await sbCfg('sobre_texto',sobreData.texto);
-  await sbCfg('sobre_foto',sobreData.foto||'');
+  await sbCfg('sobre_texto',sobreData.texto);await sbCfg('sobre_foto',sobreData.foto||'');
   hideNotice();renderSobre();showToast('Sobre salva!');
 }
 
-// SITE DATA
 function loadSiteForm(){
   document.getElementById('s-phone').value=siteData.phone;
   document.getElementById('s-email').value=siteData.email;
@@ -1806,7 +1265,6 @@ async function salvarSite(){
   applySiteData();hideNotice();showToast('Dados salvos!');
 }
 
-// SENHA
 function trocarSenha(){
   const atual=document.getElementById('pw-atual').value;
   const nova=document.getElementById('pw-nova').value;
@@ -1821,7 +1279,6 @@ function trocarSenha(){
   showToast('Senha alterada!');
 }
 
-// CONTATO
 function enviarContato(){
   const nome=document.getElementById('cf-nome').value.trim();
   const email=document.getElementById('cf-email').value.trim();
@@ -1834,23 +1291,17 @@ function enviarContato(){
   ['cf-nome','cf-email','cf-tel','cf-msg'].forEach(id=>document.getElementById(id).value='');
 }
 
-// TOAST / DOTS
 function showToast(msg){const t=document.getElementById('toast');t.textContent='✓ '+msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
 function buildHeroDots(){const el=document.getElementById('hero-dots');for(let i=0;i<24;i++){const s=document.createElement('span');if(i>=18)s.classList.add('o');el.appendChild(s)}}
 
-// BACKDROPS
 ['obra-modal','cliente-modal','admin-panel'].forEach(id=>{
   document.getElementById(id).addEventListener('click',function(e){if(e.target===this){if(id==='admin-panel')closeAdmin();else closeModal(id)}});
 });
 
-// EXPOSE
 Object.assign(window,{showPage,goContato,toggleMenu,mobileNav,openObra,closeModal,openCliente,filterObras,enviarContato,openAdmin,closeAdmin,checkLogin,trocarSenha,switchTab,editObra,delObra,salvarObra,limparFormObra,handleFotosObra,renderFotoPreview,setMainFoto,removeFoto,openFotoFullscreen,closeFotoFullscreen,handleSingleUpload,editCliente,delCliente,salvarCliente,limparFormCliente,loadAtuacaoForm,renderAtuacaoAdmin,updAt,delAtuacaoItem,addAtuacaoItem,handleAtFoto,salvarAtuacao,loadSobreForm,salvarSobre,loadSiteForm,salvarSite,salvarLayout,setLayout,updateColor,setFont,updateRadius,toggleSection,renderStripAdmin,addStripItem,updStripItem,delStripItem,loadLayoutForm,escHtml,carouselPrev,carouselNext,goSlide});
 
-// INIT
 buildHeroDots();
 sbLoad();
 </script>
 </body>
 </html>
-
-  
