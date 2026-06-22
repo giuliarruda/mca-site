@@ -1276,7 +1276,17 @@ async function salvarObra(){
   const fotosDepoisUrls=await uploadAll(fotosDepois);
   const selCli=document.getElementById('n-cliente-ref');
   const d={id:editingObra||Date.now(),nome,cat:document.getElementById('n-cat').value,clienteId:selCli&&selCli.value?parseInt(selCli.value):null,local:document.getElementById('n-local').value||'São Paulo, SP',ano:document.getElementById('n-ano').value||'2024',area:document.getElementById('n-area').value||'—',desc:document.getElementById('n-desc').value||'',foto,fotos,fotosAntes:fotosAntesUrls,fotosDepois:fotosDepoisUrls};
-  const newId=await sbSaveObra(d);d.id=newId;
+  let newId;
+  try{
+    newId=await sbSaveObra(d);
+  }catch(e){
+    hideNotice();
+    const msg=e?.message||e?.details||JSON.stringify(e);
+    alert('Erro ao salvar obra:\n'+msg);
+    console.error('Erro completo sbSaveObra:',e);
+    return;
+  }
+  d.id=newId;
   if(editingObra)obras=obras.map(o=>o.id===editingObra?d:o);else obras.push(d);
   editingObra=null;obraFotos=[];fotosAntes=[];fotosDepois=[];
   renderObrasGrid(obras);renderAdminObras();limparFormObra();
