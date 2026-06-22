@@ -872,9 +872,16 @@ async function sbLoad(){
 }
 async function sbCfg(k,v){await sb.from('config').upsert({chave:k,valor:v},{onConflict:'chave'})}
 async function sbSaveObra(d){
-  const row={nome:d.nome,cat:d.cat,cliente_id:d.clienteId||null,local:d.local,ano:d.ano,area:d.area,descricao:d.desc,foto:d.foto,fotos_extras:d.fotos||[],fotos_antes:d.fotosAntes||[],fotos_depois:d.fotosDepois||[],ordem:typeof d.id==='number'&&d.id<1e12?d.id:Date.now()};
-  if(typeof d.id==='number'&&d.id<1e12){await sb.from('obras').update(row).eq('id',d.id);return d.id}
-  const{data}=await sb.from('obras').insert(row).select('id').single();return data?.id||d.id;
+  const isNew=!(typeof d.id==='number'&&d.id<1e12);
+  const row={nome:d.nome,cat:d.cat,cliente_id:d.clienteId||null,local:d.local,ano:d.ano,area:d.area,descricao:d.desc,foto:d.foto,fotos_extras:d.fotos||[],fotos_antes:d.fotosAntes||[],fotos_depois:d.fotosDepois||[]};
+  if(!isNew){
+    await sb.from('obras').update(row).eq('id',d.id);
+    return d.id;
+  }else{
+    const{data,error}=await sb.from('obras').insert(row).select('id').single();
+    if(error){console.error('Erro ao inserir obra:',error);throw error}
+    return data?.id||d.id;
+  }
 }
 async function sbDelObra(id){await sb.from('obras').delete().eq('id',id)}
 async function sbSaveCliente(d){
