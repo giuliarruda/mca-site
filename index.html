@@ -69,12 +69,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .stat-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);margin-top:4px}
 
 /* ── ABOUT STRIP ── */
-.about-strip{background:var(--orange);padding:28px 48px;display:flex;align-items:center;gap:40px;flex-wrap:wrap}
-.about-strip p{font-family:var(--font-display);font-weight:600;font-size:18px;letter-spacing:0.05em;color:var(--white);flex:1;min-width:240px}
-.about-dividers{display:flex;gap:24px}
-.about-item{display:flex;align-items:center;gap:10px}
-.about-item .icon{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:14px}
-.about-item span{font-size:13px;color:rgba(255,255,255,0.85);letter-spacing:0.06em;text-transform:uppercase;font-weight:500}
+.about-strip{background:var(--orange);padding:28px 48px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.about-strip p{font-family:var(--font-display);font-weight:600;font-size:18px;letter-spacing:0.05em;color:var(--white);flex:1;min-width:200px}
+.about-dividers{display:flex;gap:16px;flex-wrap:wrap}
+.about-item{display:flex;align-items:center;gap:8px;min-width:0}
+.about-item .icon{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.about-item span{font-size:12px;color:rgba(255,255,255,0.85);letter-spacing:0.06em;text-transform:uppercase;font-weight:500;white-space:nowrap}
 
 /* ── OBRAS ── */
 .obras-section{padding:96px 48px;background:var(--light)}
@@ -527,8 +527,24 @@ footer p{font-size:13px;color:var(--gray)}
     <div id="antes-depois-section" style="display:none;padding:28px 40px;background:#f8f8f8;border-top:1px solid #eee">
       <div style="font-family:var(--font-display);font-weight:700;font-size:18px;text-transform:uppercase;color:var(--navy);letter-spacing:0.05em;margin-bottom:16px;display:flex;align-items:center;gap:8px"><span style="width:3px;height:18px;background:var(--orange);border-radius:2px;display:block"></span>Antes &amp; Depois</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div style="position:relative;border-radius:4px;overflow:hidden"><img id="ad-antes" src="" alt="Antes" style="width:100%;height:220px;object-fit:cover;display:block"><div style="position:absolute;top:10px;left:10px;background:var(--navy);color:#fff;padding:4px 12px;border-radius:2px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600">Antes</div></div>
-        <div style="position:relative;border-radius:4px;overflow:hidden"><img id="ad-depois" src="" alt="Depois" style="width:100%;height:220px;object-fit:cover;display:block"><div style="position:absolute;top:10px;left:10px;background:var(--orange);color:#fff;padding:4px 12px;border-radius:2px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600">Depois</div></div>
+        <div>
+          <div style="position:relative;border-radius:4px;overflow:hidden;background:#ddd">
+            <div id="antes-carousel-track" style="display:flex;transition:transform 0.4s ease"></div>
+            <button onclick="adCarousel('antes',-1)" id="antes-prev-btn" style="position:absolute;top:50%;left:6px;transform:translateY(-50%);background:rgba(0,0,0,0.5);border:none;color:#fff;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:2">&#8249;</button>
+            <button onclick="adCarousel('antes',1)" id="antes-next-btn" style="position:absolute;top:50%;right:6px;transform:translateY(-50%);background:rgba(0,0,0,0.5);border:none;color:#fff;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:2">&#8250;</button>
+            <div style="position:absolute;top:10px;left:10px;background:var(--navy);color:#fff;padding:4px 12px;border-radius:2px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;z-index:2">Antes</div>
+            <div id="antes-counter" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.5);color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;z-index:2;display:none"></div>
+          </div>
+        </div>
+        <div>
+          <div style="position:relative;border-radius:4px;overflow:hidden;background:#ddd">
+            <div id="depois-carousel-track" style="display:flex;transition:transform 0.4s ease"></div>
+            <button onclick="adCarousel('depois',-1)" id="depois-prev-btn" style="position:absolute;top:50%;left:6px;transform:translateY(-50%);background:rgba(0,0,0,0.5);border:none;color:#fff;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:2">&#8249;</button>
+            <button onclick="adCarousel('depois',1)" id="depois-next-btn" style="position:absolute;top:50%;right:6px;transform:translateY(-50%);background:rgba(0,0,0,0.5);border:none;color:#fff;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:2">&#8250;</button>
+            <div style="position:absolute;top:10px;left:10px;background:var(--orange);color:#fff;padding:4px 12px;border-radius:2px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;z-index:2">Depois</div>
+            <div id="depois-counter" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.5);color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;z-index:2;display:none"></div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="modal-body">
@@ -624,19 +640,19 @@ footer p{font-size:13px;color:var(--gray)}
               <div class="foto-preview-row" id="foto-preview"></div>
             </div>
             <div class="form-group full">
-              <label>Foto ANTES (opcional — aparece na seção Antes &amp; Depois)</label>
+              <label>Fotos ANTES (opcional — pode selecionar várias)</label>
               <div class="upload-area" onclick="document.getElementById('foto-antes-input').click()" style="padding:14px">
-                <p>📷 Clique para selecionar foto do <strong>antes</strong></p>
+                <p>📷 Clique para selecionar fotos do <strong>antes</strong></p>
               </div>
-              <input type="file" id="foto-antes-input" accept="image/*" style="display:none" onchange="handleSingleUpload(this,'antes-preview','fotoAntes')">
+              <input type="file" id="foto-antes-input" multiple accept="image/*" style="display:none" onchange="handleMultiUpload(this,'antes-preview','fotosAntes')">
               <div class="foto-preview-row" id="antes-preview"></div>
             </div>
             <div class="form-group full">
-              <label>Foto DEPOIS (opcional — aparece na seção Antes &amp; Depois)</label>
+              <label>Fotos DEPOIS (opcional — pode selecionar várias)</label>
               <div class="upload-area" onclick="document.getElementById('foto-depois-input').click()" style="padding:14px">
-                <p>📷 Clique para selecionar foto do <strong>depois</strong></p>
+                <p>📷 Clique para selecionar fotos do <strong>depois</strong></p>
               </div>
-              <input type="file" id="foto-depois-input" accept="image/*" style="display:none" onchange="handleSingleUpload(this,'depois-preview','fotoDepois')">
+              <input type="file" id="foto-depois-input" multiple accept="image/*" style="display:none" onchange="handleMultiUpload(this,'depois-preview','fotosDepois')">
               <div class="foto-preview-row" id="depois-preview"></div>
             </div>
           </div>
@@ -808,7 +824,7 @@ function sv(k,v){localStorage.setItem(k,JSON.stringify(v))}
 let obras=[],clientes=[],atuacaoData=[],sobreData=ld('mca_sobre',DEF_SOBRE);
 let siteData=ld('mca_site',DEF_SITE),layoutData=ld('mca_layout',DEF_LAYOUT);
 let isLoggedIn=false,atuacaoTemp=[];
-let obraFotos=[],fotoAntes=null,fotoDepois=null,clienteLogo=null,sobreFoto=null;
+let obraFotos=[],fotosAntes=[],fotosDepois=[],clienteLogo=null,sobreFoto=null;
 let editingObra=null,editingCliente=null;
 let carouselCurrent=0,carouselSlides=[];
 
@@ -840,7 +856,7 @@ async function sbLoad(){
       sb.from('atuacao').select('*').order('ordem'),
       sb.from('config').select('*'),
     ]);
-    if(ob&&ob.length)obras=ob.map(r=>({id:r.id,nome:r.nome,cat:r.cat,clienteId:r.cliente_id,local:r.local,ano:r.ano,area:r.area,desc:r.descricao,foto:r.foto,fotos:r.fotos_extras||[],fotoAntes:r.foto_antes||'',fotoDepois:r.foto_depois||''}));
+    if(ob&&ob.length)obras=ob.map(r=>({id:r.id,nome:r.nome,cat:r.cat,clienteId:r.cliente_id,local:r.local,ano:r.ano,area:r.area,desc:r.descricao,foto:r.foto,fotos:r.fotos_extras||[],fotosAntes:r.fotos_antes||[],fotosDepois:r.fotos_depois||[]}));
     if(cl&&cl.length)clientes=cl.map(r=>({id:r.id,nome:r.nome,seg:r.segmento,desc:r.descricao,logo:r.logo}));
     if(at&&at.length)atuacaoData=at.map(r=>({id:r.id,titulo:r.titulo,desc:r.descricao,foto:r.foto}));
     if(cf&&cf.length){
@@ -856,7 +872,7 @@ async function sbLoad(){
 }
 async function sbCfg(k,v){await sb.from('config').upsert({chave:k,valor:v},{onConflict:'chave'})}
 async function sbSaveObra(d){
-  const row={nome:d.nome,cat:d.cat,cliente_id:d.clienteId||null,local:d.local,ano:d.ano,area:d.area,descricao:d.desc,foto:d.foto,fotos_extras:d.fotos||[],foto_antes:d.fotoAntes||'',foto_depois:d.fotoDepois||'',ordem:typeof d.id==='number'&&d.id<1e12?d.id:Date.now()};
+  const row={nome:d.nome,cat:d.cat,cliente_id:d.clienteId||null,local:d.local,ano:d.ano,area:d.area,descricao:d.desc,foto:d.foto,fotos_extras:d.fotos||[],fotos_antes:d.fotosAntes||[],fotos_depois:d.fotosDepois||[],ordem:typeof d.id==='number'&&d.id<1e12?d.id:Date.now()};
   if(typeof d.id==='number'&&d.id<1e12){await sb.from('obras').update(row).eq('id',d.id);return d.id}
   const{data}=await sb.from('obras').insert(row).select('id').single();return data?.id||d.id;
 }
@@ -953,6 +969,57 @@ function carouselPrev(){carouselCurrent=(carouselCurrent-1+carouselSlides.length
 function carouselNext(){carouselCurrent=(carouselCurrent+1)%carouselSlides.length;updateCarousel()}
 function goSlide(i){carouselCurrent=i;updateCarousel()}
 
+// ANTES/DEPOIS CAROUSEL
+const adIdx={antes:0,depois:0};
+function buildAdCarousel(side,slides){
+  adIdx[side]=0;
+  const track=document.getElementById(side+'-carousel-track');
+  if(!track)return;
+  if(!slides.length){track.parentElement.style.minHeight='0';return}
+  track.innerHTML=slides.map(s=>`<div style="min-width:100%"><img src="${s}" alt="" style="width:100%;height:220px;object-fit:cover;display:block" onerror="this.src='https://placehold.co/600x220/2E3450/FFFFFF?text=MCA'"></div>`).join('');
+  const prevBtn=document.getElementById(side+'-prev-btn');
+  const nextBtn=document.getElementById(side+'-next-btn');
+  const counter=document.getElementById(side+'-counter');
+  if(slides.length>1){
+    if(prevBtn)prevBtn.style.display='flex';
+    if(nextBtn)nextBtn.style.display='flex';
+    if(counter){counter.style.display='block';counter.textContent='1/'+slides.length}
+  }else{
+    if(prevBtn)prevBtn.style.display='none';
+    if(nextBtn)nextBtn.style.display='none';
+    if(counter)counter.style.display='none';
+  }
+  updateAdCarousel(side,slides.length);
+}
+function updateAdCarousel(side,total){
+  const track=document.getElementById(side+'-carousel-track');
+  if(track)track.style.transform=`translateX(-${adIdx[side]*100}%)`;
+  const counter=document.getElementById(side+'-counter');
+  if(counter&&total>1)counter.textContent=(adIdx[side]+1)+'/'+total;
+}
+function adCarousel(side,dir){
+  const track=document.getElementById(side+'-carousel-track');
+  if(!track)return;
+  const total=track.children.length;
+  adIdx[side]=(adIdx[side]+dir+total)%total;
+  updateAdCarousel(side,total);
+}
+
+// MULTI UPLOAD (antes/depois)
+function handleMultiUpload(input,previewId,varName){
+  const files=Array.from(input.files);if(!files.length)return;
+  const urls=files.map(f=>URL.createObjectURL(f));
+  if(varName==='fotosAntes')fotosAntes=[...fotosAntes,...urls];
+  if(varName==='fotosDepois')fotosDepois=[...fotosDepois,...urls];
+  const row=document.getElementById(previewId);
+  if(varName==='fotosAntes')row.innerHTML=fotosAntes.map((u,i)=>`<div class="foto-preview-item"><img src="${u}" style="width:72px;height:54px;object-fit:cover;border-radius:4px;border:2px solid transparent;cursor:zoom-in" onclick="openFotoFullscreen('${u}')"><button class="del-foto" onclick="removeAdFoto('fotosAntes','antes-preview',${i})">×</button></div>`).join('');
+  if(varName==='fotosDepois')row.innerHTML=fotosDepois.map((u,i)=>`<div class="foto-preview-item"><img src="${u}" style="width:72px;height:54px;object-fit:cover;border-radius:4px;border:2px solid transparent;cursor:zoom-in" onclick="openFotoFullscreen('${u}')"><button class="del-foto" onclick="removeAdFoto('fotosDepois','depois-preview',${i})">×</button></div>`).join('');
+}
+function removeAdFoto(varName,previewId,i){
+  if(varName==='fotosAntes'){fotosAntes.splice(i,1);handleMultiUpload({files:[]},previewId,'_rebuild');document.getElementById(previewId).innerHTML=fotosAntes.map((u,j)=>`<div class="foto-preview-item"><img src="${u}" style="width:72px;height:54px;object-fit:cover;border-radius:4px;border:2px solid transparent;cursor:zoom-in" onclick="openFotoFullscreen('${u}')"><button class="del-foto" onclick="removeAdFoto('fotosAntes','antes-preview',${j})">×</button></div>`).join('')}
+  if(varName==='fotosDepois'){fotosDepois.splice(i,1);document.getElementById(previewId).innerHTML=fotosDepois.map((u,j)=>`<div class="foto-preview-item"><img src="${u}" style="width:72px;height:54px;object-fit:cover;border-radius:4px;border:2px solid transparent;cursor:zoom-in" onclick="openFotoFullscreen('${u}')"><button class="del-foto" onclick="removeAdFoto('fotosDepois','depois-preview',${j})">×</button></div>`).join('')}
+}
+
 function openObra(id){
   const o=obras.find(x=>x.id===id);if(!o)return;
   buildCarousel([o.foto,...(o.fotos||[])].filter(Boolean));
@@ -963,8 +1030,11 @@ function openObra(id){
   document.getElementById('modal-area').textContent=o.area;
   document.getElementById('modal-desc').textContent=o.desc;
   const adSec=document.getElementById('antes-depois-section');
-  if(o.fotoAntes&&o.fotoDepois){document.getElementById('ad-antes').src=o.fotoAntes;document.getElementById('ad-depois').src=o.fotoDepois;adSec.style.display='block'}
-  else adSec.style.display='none';
+  if((o.fotosAntes&&o.fotosAntes.length)||(o.fotosDepois&&o.fotosDepois.length)){
+    buildAdCarousel('antes',o.fotosAntes||[]);
+    buildAdCarousel('depois',o.fotosDepois||[]);
+    adSec.style.display='block';
+  } else adSec.style.display='none';
   document.getElementById('obra-modal').classList.add('open');document.body.style.overflow='hidden';
 }
 function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow=''}
@@ -1137,9 +1207,9 @@ function editObra(id){
   const sel=document.getElementById('n-cliente-ref');if(sel)sel.value=o.clienteId||'';
   obraFotos=[{url:o.foto},...(o.fotos||[]).map(u=>({url:u}))];
   renderFotoPreview();
-  fotoAntes=o.fotoAntes||null;fotoDepois=o.fotoDepois||null;
-  if(fotoAntes)document.getElementById('antes-preview').innerHTML=`<div class="foto-preview-item"><img src="${fotoAntes}" style="height:60px;width:auto" class="main-foto" onclick="openFotoFullscreen('${fotoAntes}')"></div>`;
-  if(fotoDepois)document.getElementById('depois-preview').innerHTML=`<div class="foto-preview-item"><img src="${fotoDepois}" style="height:60px;width:auto" class="main-foto" onclick="openFotoFullscreen('${fotoDepois}')"></div>`;
+  fotosAntes=o.fotosAntes||[];fotosDepois=o.fotosDepois||[];
+  if(fotosAntes.length)document.getElementById('antes-preview').innerHTML=fotosAntes.map((u,i)=>`<div class="foto-preview-item"><img src="${u}" style="width:72px;height:54px;object-fit:cover;border-radius:4px;cursor:zoom-in" onclick="openFotoFullscreen('${u}')"><button class="del-foto" onclick="removeAdFoto('fotosAntes','antes-preview',${i})">×</button></div>`).join('');
+  if(fotosDepois.length)document.getElementById('depois-preview').innerHTML=fotosDepois.map((u,i)=>`<div class="foto-preview-item"><img src="${u}" style="width:72px;height:54px;object-fit:cover;border-radius:4px;cursor:zoom-in" onclick="openFotoFullscreen('${u}')"><button class="del-foto" onclick="removeAdFoto('fotosDepois','depois-preview',${i})">×</button></div>`).join('');
   switchTab('nova-obra',document.querySelector('[data-tab="nova-obra"]'));
 }
 async function delObra(id){
@@ -1151,11 +1221,11 @@ async function salvarObra(){
   const foto=obraFotos.length?obraFotos[0].url:'https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?w=800&q=80';
   const fotos=obraFotos.slice(1).map(f=>f.url);
   const selCli=document.getElementById('n-cliente-ref');
-  const d={id:editingObra||Date.now(),nome,cat:document.getElementById('n-cat').value,clienteId:selCli&&selCli.value?parseInt(selCli.value):null,local:document.getElementById('n-local').value||'São Paulo, SP',ano:document.getElementById('n-ano').value||'2024',area:document.getElementById('n-area').value||'—',desc:document.getElementById('n-desc').value||'',foto,fotos,fotoAntes:fotoAntes||'',fotoDepois:fotoDepois||''};
+  const d={id:editingObra||Date.now(),nome,cat:document.getElementById('n-cat').value,clienteId:selCli&&selCli.value?parseInt(selCli.value):null,local:document.getElementById('n-local').value||'São Paulo, SP',ano:document.getElementById('n-ano').value||'2024',area:document.getElementById('n-area').value||'—',desc:document.getElementById('n-desc').value||'',foto,fotos,fotosAntes,fotosDepois};
   showNotice('Salvando...',false);
   const newId=await sbSaveObra(d);d.id=newId;
   if(editingObra)obras=obras.map(o=>o.id===editingObra?d:o);else obras.push(d);
-  editingObra=null;obraFotos=[];fotoAntes=null;fotoDepois=null;
+  editingObra=null;obraFotos=[];fotosAntes=[];fotosDepois=[];
   renderObrasGrid(obras);renderAdminObras();limparFormObra();
   hideNotice();showToast('Obra salva!');switchTab('obras',document.querySelector('[data-tab="obras"]'));
 }
@@ -1163,7 +1233,7 @@ function limparFormObra(){
   ['n-nome','n-local','n-ano','n-area','n-desc'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('n-cat').value='Residencial';
   ['foto-preview','antes-preview','depois-preview'].forEach(id=>document.getElementById(id).innerHTML='');
-  obraFotos=[];fotoAntes=null;fotoDepois=null;editingObra=null;
+  obraFotos=[];fotosAntes=[];fotosDepois=[];editingObra=null;
 }
 
 function renderAdminClientes(){
@@ -1298,7 +1368,7 @@ function buildHeroDots(){const el=document.getElementById('hero-dots');for(let i
   document.getElementById(id).addEventListener('click',function(e){if(e.target===this){if(id==='admin-panel')closeAdmin();else closeModal(id)}});
 });
 
-Object.assign(window,{showPage,goContato,toggleMenu,mobileNav,openObra,closeModal,openCliente,filterObras,enviarContato,openAdmin,closeAdmin,checkLogin,trocarSenha,switchTab,editObra,delObra,salvarObra,limparFormObra,handleFotosObra,renderFotoPreview,setMainFoto,removeFoto,openFotoFullscreen,closeFotoFullscreen,handleSingleUpload,editCliente,delCliente,salvarCliente,limparFormCliente,loadAtuacaoForm,renderAtuacaoAdmin,updAt,delAtuacaoItem,addAtuacaoItem,handleAtFoto,salvarAtuacao,loadSobreForm,salvarSobre,loadSiteForm,salvarSite,salvarLayout,setLayout,updateColor,setFont,updateRadius,toggleSection,renderStripAdmin,addStripItem,updStripItem,delStripItem,loadLayoutForm,escHtml,carouselPrev,carouselNext,goSlide});
+Object.assign(window,{showPage,goContato,toggleMenu,mobileNav,openObra,closeModal,openCliente,filterObras,enviarContato,openAdmin,closeAdmin,checkLogin,trocarSenha,switchTab,editObra,delObra,salvarObra,limparFormObra,handleFotosObra,renderFotoPreview,setMainFoto,removeFoto,openFotoFullscreen,closeFotoFullscreen,handleSingleUpload,handleMultiUpload,removeAdFoto,adCarousel,editCliente,delCliente,salvarCliente,limparFormCliente,loadAtuacaoForm,renderAtuacaoAdmin,updAt,delAtuacaoItem,addAtuacaoItem,handleAtFoto,salvarAtuacao,loadSobreForm,salvarSobre,loadSiteForm,salvarSite,salvarLayout,setLayout,updateColor,setFont,updateRadius,toggleSection,renderStripAdmin,addStripItem,updStripItem,delStripItem,loadLayoutForm,escHtml,carouselPrev,carouselNext,goSlide});
 
 buildHeroDots();
 sbLoad();
