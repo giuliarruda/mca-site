@@ -1008,16 +1008,25 @@ function adCarousel(side,dir){
 // MULTI UPLOAD (antes/depois)
 function handleMultiUpload(input,previewId,varName){
   const files=Array.from(input.files);if(!files.length)return;
-  const urls=files.map(f=>URL.createObjectURL(f));
-  if(varName==='fotosAntes')fotosAntes=[...fotosAntes,...urls];
-  if(varName==='fotosDepois')fotosDepois=[...fotosDepois,...urls];
-  const row=document.getElementById(previewId);
-  if(varName==='fotosAntes')row.innerHTML=fotosAntes.map((u,i)=>`<div class="foto-preview-item"><img src="${u}" style="width:72px;height:54px;object-fit:cover;border-radius:4px;border:2px solid transparent;cursor:zoom-in" onclick="openFotoFullscreen('${u}')"><button class="del-foto" onclick="removeAdFoto('fotosAntes','antes-preview',${i})">×</button></div>`).join('');
-  if(varName==='fotosDepois')row.innerHTML=fotosDepois.map((u,i)=>`<div class="foto-preview-item"><img src="${u}" style="width:72px;height:54px;object-fit:cover;border-radius:4px;border:2px solid transparent;cursor:zoom-in" onclick="openFotoFullscreen('${u}')"><button class="del-foto" onclick="removeAdFoto('fotosDepois','depois-preview',${i})">×</button></div>`).join('');
+  files.forEach(f=>{
+    const entry={url:URL.createObjectURL(f),file:f};
+    if(varName==='fotosAntes')fotosAntes.push(entry);
+    if(varName==='fotosDepois')fotosDepois.push(entry);
+  });
+  renderAdPreview(varName,previewId);
+}
+function renderAdPreview(varName,previewId){
+  const arr=varName==='fotosAntes'?fotosAntes:fotosDepois;
+  document.getElementById(previewId).innerHTML=arr.map((f,i)=>`
+    <div class="foto-preview-item">
+      <img src="${f.url}" style="width:72px;height:54px;object-fit:cover;border-radius:4px;cursor:zoom-in" onclick="openFotoFullscreen('${f.url}')">
+      <button class="del-foto" onclick="removeAdFoto('${varName}','${previewId}',${i})">×</button>
+    </div>`).join('');
 }
 function removeAdFoto(varName,previewId,i){
-  if(varName==='fotosAntes'){fotosAntes.splice(i,1);handleMultiUpload({files:[]},previewId,'_rebuild');document.getElementById(previewId).innerHTML=fotosAntes.map((u,j)=>`<div class="foto-preview-item"><img src="${u}" style="width:72px;height:54px;object-fit:cover;border-radius:4px;border:2px solid transparent;cursor:zoom-in" onclick="openFotoFullscreen('${u}')"><button class="del-foto" onclick="removeAdFoto('fotosAntes','antes-preview',${j})">×</button></div>`).join('')}
-  if(varName==='fotosDepois'){fotosDepois.splice(i,1);document.getElementById(previewId).innerHTML=fotosDepois.map((u,j)=>`<div class="foto-preview-item"><img src="${u}" style="width:72px;height:54px;object-fit:cover;border-radius:4px;border:2px solid transparent;cursor:zoom-in" onclick="openFotoFullscreen('${u}')"><button class="del-foto" onclick="removeAdFoto('fotosDepois','depois-preview',${j})">×</button></div>`).join('')}
+  if(varName==='fotosAntes')fotosAntes.splice(i,1);
+  if(varName==='fotosDepois')fotosDepois.splice(i,1);
+  renderAdPreview(varName,previewId);
 }
 
 function openObra(id){
@@ -1157,8 +1166,27 @@ function switchTab(tab,btn){
   document.getElementById('tab-'+tab).classList.add('active');btn.classList.add('active');
 }
 
+// ══ SUPABASE STORAGE UPLOAD ══
+const BUCKET='Fotos MCA';
+async function uploadFoto(file){
+  const ext=(file.name.split('.').pop()||'jpg').toLowerCase();
+  const path=`${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  const{data,error}=await sb.storage.from(BUCKET).upload(path,file,{cacheControl:'3600',upsert:false});
+  if(error)throw error;
+  const{data:pub}=sb.storage.from(BUCKET).getPublicUrl(path);
+  return pub.publicUrl;
+}
+async function uploadAll(arr){
+  const urls=[];
+  for(const item of arr){
+    if(item.file){try{urls.push(await uploadFoto(item.file))}catch(e){console.error(e)}}
+    else if(item.url&&!item.url.startsWith('blob:'))urls.push(item.url);
+  }
+  return urls;
+}
+
 function handleFotosObra(files){
-  Array.from(files).forEach(f=>obraFotos.push({url:URL.createObjectURL(f)}));
+  Array.from(files).forEach(f=>obraFotos.push({url:URL.createObjectURL(f),file:f}));
   renderFotoPreview();
 }
 function renderFotoPreview(){
@@ -1176,10 +1204,9 @@ function closeFotoFullscreen(){document.getElementById('foto-fullscreen').style.
 function handleSingleUpload(input,previewId,varName){
   const f=input.files[0];if(!f)return;
   const url=URL.createObjectURL(f);
-  if(varName==='fotoAntes')fotoAntes=url;
-  if(varName==='fotoDepois')fotoDepois=url;
-  if(varName==='clienteLogo')clienteLogo=url;
-  if(varName==='sobreFoto')sobreFoto=url;
+  const entry={url,file:f};
+  if(varName==='clienteLogo')clienteLogo=entry;
+  if(varName==='sobreFoto')sobreFoto=entry;
   document.getElementById(previewId).innerHTML=`<div class="foto-preview-item"><img src="${url}" class="main-foto" style="width:auto;height:60px;object-fit:contain" onclick="openFotoFullscreen('${url}')"></div>`;
 }
 
@@ -1218,11 +1245,15 @@ async function delObra(id){
 }
 async function salvarObra(){
   const nome=document.getElementById('n-nome').value.trim();if(!nome){alert('Informe o nome.');return}
-  const foto=obraFotos.length?obraFotos[0].url:'https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?w=800&q=80';
-  const fotos=obraFotos.slice(1).map(f=>f.url);
+  showNotice('Enviando fotos... aguarde.',false);
+  // Upload todas as fotos para o Storage
+  const fotoUrls=await uploadAll(obraFotos);
+  const foto=fotoUrls[0]||'https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?w=800&q=80';
+  const fotos=fotoUrls.slice(1);
+  const fotosAntesUrls=await uploadAll(fotosAntes);
+  const fotosDepoisUrls=await uploadAll(fotosDepois);
   const selCli=document.getElementById('n-cliente-ref');
-  const d={id:editingObra||Date.now(),nome,cat:document.getElementById('n-cat').value,clienteId:selCli&&selCli.value?parseInt(selCli.value):null,local:document.getElementById('n-local').value||'São Paulo, SP',ano:document.getElementById('n-ano').value||'2024',area:document.getElementById('n-area').value||'—',desc:document.getElementById('n-desc').value||'',foto,fotos,fotosAntes,fotosDepois};
-  showNotice('Salvando...',false);
+  const d={id:editingObra||Date.now(),nome,cat:document.getElementById('n-cat').value,clienteId:selCli&&selCli.value?parseInt(selCli.value):null,local:document.getElementById('n-local').value||'São Paulo, SP',ano:document.getElementById('n-ano').value||'2024',area:document.getElementById('n-area').value||'—',desc:document.getElementById('n-desc').value||'',foto,fotos,fotosAntes:fotosAntesUrls,fotosDepois:fotosDepoisUrls};
   const newId=await sbSaveObra(d);d.id=newId;
   if(editingObra)obras=obras.map(o=>o.id===editingObra?d:o);else obras.push(d);
   editingObra=null;obraFotos=[];fotosAntes=[];fotosDepois=[];
@@ -1258,7 +1289,9 @@ async function delCliente(id){
 }
 async function salvarCliente(){
   const nome=document.getElementById('cl-nome').value.trim();if(!nome){alert('Informe o nome.');return}
-  const logo=clienteLogo||(editingCliente?clientes.find(c=>c.id===editingCliente)?.logo:'');
+  let logo=editingCliente?clientes.find(c=>c.id===editingCliente)?.logo:'';
+  if(clienteLogo&&clienteLogo.file){showNotice('Enviando logo...',false);try{logo=await uploadFoto(clienteLogo.file)}catch(e){}}
+  else if(clienteLogo&&clienteLogo.url&&!clienteLogo.url.startsWith('blob:'))logo=clienteLogo.url;
   const d={id:editingCliente||Date.now(),nome,seg:document.getElementById('cl-seg').value,desc:document.getElementById('cl-desc').value,logo:logo||''};
   showNotice('Salvando...',false);
   const newId=await sbSaveCliente(d);d.id=newId;
@@ -1314,7 +1347,8 @@ function loadSobreForm(){
 }
 async function salvarSobre(){
   sobreData.texto=document.getElementById('sobre-texto').value;
-  if(sobreFoto)sobreData.foto=sobreFoto;
+  if(sobreFoto&&sobreFoto.file){showNotice('Enviando foto...',false);try{sobreData.foto=await uploadFoto(sobreFoto.file)}catch(e){console.error(e)}}
+  else if(sobreFoto&&sobreFoto.url&&!sobreFoto.url.startsWith('blob:'))sobreData.foto=sobreFoto.url;
   showNotice('Salvando...',false);sv('mca_sobre',sobreData);
   await sbCfg('sobre_texto',sobreData.texto);await sbCfg('sobre_foto',sobreData.foto||'');
   hideNotice();renderSobre();showToast('Sobre salva!');
@@ -1368,7 +1402,7 @@ function buildHeroDots(){const el=document.getElementById('hero-dots');for(let i
   document.getElementById(id).addEventListener('click',function(e){if(e.target===this){if(id==='admin-panel')closeAdmin();else closeModal(id)}});
 });
 
-Object.assign(window,{showPage,goContato,toggleMenu,mobileNav,openObra,closeModal,openCliente,filterObras,enviarContato,openAdmin,closeAdmin,checkLogin,trocarSenha,switchTab,editObra,delObra,salvarObra,limparFormObra,handleFotosObra,renderFotoPreview,setMainFoto,removeFoto,openFotoFullscreen,closeFotoFullscreen,handleSingleUpload,handleMultiUpload,removeAdFoto,adCarousel,editCliente,delCliente,salvarCliente,limparFormCliente,loadAtuacaoForm,renderAtuacaoAdmin,updAt,delAtuacaoItem,addAtuacaoItem,handleAtFoto,salvarAtuacao,loadSobreForm,salvarSobre,loadSiteForm,salvarSite,salvarLayout,setLayout,updateColor,setFont,updateRadius,toggleSection,renderStripAdmin,addStripItem,updStripItem,delStripItem,loadLayoutForm,escHtml,carouselPrev,carouselNext,goSlide});
+Object.assign(window,{showPage,goContato,toggleMenu,mobileNav,openObra,closeModal,openCliente,filterObras,enviarContato,openAdmin,closeAdmin,checkLogin,trocarSenha,switchTab,editObra,delObra,salvarObra,limparFormObra,handleFotosObra,renderFotoPreview,setMainFoto,removeFoto,openFotoFullscreen,closeFotoFullscreen,handleSingleUpload,handleMultiUpload,renderAdPreview,removeAdFoto,adCarousel,editCliente,delCliente,salvarCliente,limparFormCliente,loadAtuacaoForm,renderAtuacaoAdmin,updAt,delAtuacaoItem,addAtuacaoItem,handleAtFoto,salvarAtuacao,loadSobreForm,salvarSobre,loadSiteForm,salvarSite,salvarLayout,setLayout,updateColor,setFont,updateRadius,toggleSection,renderStripAdmin,addStripItem,updStripItem,delStripItem,loadLayoutForm,escHtml,carouselPrev,carouselNext,goSlide});
 
 buildHeroDots();
 sbLoad();
