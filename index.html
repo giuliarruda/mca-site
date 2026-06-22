@@ -1171,15 +1171,30 @@ const BUCKET='Fotos MCA';
 async function uploadFoto(file){
   const ext=(file.name.split('.').pop()||'jpg').toLowerCase();
   const path=`${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  console.log('Uploading to bucket:', BUCKET, 'path:', path, 'file size:', file.size);
   const{data,error}=await sb.storage.from(BUCKET).upload(path,file,{cacheControl:'3600',upsert:false});
-  if(error)throw error;
+  if(error){
+    console.error('Upload ERRO detalhado:', JSON.stringify(error), error.message, error.statusCode);
+    throw error;
+  }
+  console.log('Upload OK:', data);
   const{data:pub}=sb.storage.from(BUCKET).getPublicUrl(path);
+  console.log('URL pública:', pub.publicUrl);
   return pub.publicUrl;
 }
 async function uploadAll(arr){
   const urls=[];
   for(const item of arr){
-    if(item.file){try{urls.push(await uploadFoto(item.file))}catch(e){console.error(e)}}
+    if(item.file){
+      try{
+        const url=await uploadFoto(item.file);
+        urls.push(url);
+        console.log('Foto enviada com sucesso:', url);
+      }catch(e){
+        console.error('Falha no upload de foto:', e);
+        showToast('Erro no upload: '+e.message);
+      }
+    }
     else if(item.url&&!item.url.startsWith('blob:'))urls.push(item.url);
   }
   return urls;
